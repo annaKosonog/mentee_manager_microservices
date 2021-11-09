@@ -1,10 +1,10 @@
-package pl.akademia.logging_application.security.controller;
+package pl.reskilled.logging_application.security.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.akademia.logging_application.security.model.UserDto;
+import pl.reskilled.logging_application.security.model.UserDto;
 
 @Controller
 public class UserController {

@@ -1,4 +1,4 @@
-package pl.akademia.logging_application;
+package pl.reskilled.logging_application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

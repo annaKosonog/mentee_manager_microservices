@@ -1,4 +1,4 @@
-package pl.akademia.logging_application.config;
+package pl.reskilled.logging_application.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
