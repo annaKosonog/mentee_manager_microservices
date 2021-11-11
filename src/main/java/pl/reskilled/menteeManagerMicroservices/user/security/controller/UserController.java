@@ -1,10 +1,10 @@
-package pl.reskilled.logging_application.security.controller;
+package pl.reskilled.menteeManagerMicroservices.user.security.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.reskilled.logging_application.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
 
 @Controller
 public class UserController {

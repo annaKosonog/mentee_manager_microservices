@@ -1,4 +1,4 @@
-package pl.reskilled.logging_application.security.config;
+package pl.reskilled.menteeManagerMicroservices.user.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,6 +53,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 http.httpBasic().disable();
 
     }
-
-
 }

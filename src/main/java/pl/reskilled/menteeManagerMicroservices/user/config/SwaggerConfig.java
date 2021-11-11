@@ -1,4 +1,4 @@
-package pl.reskilled.logging_application.config;
+package pl.reskilled.menteeManagerMicroservices.user.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
