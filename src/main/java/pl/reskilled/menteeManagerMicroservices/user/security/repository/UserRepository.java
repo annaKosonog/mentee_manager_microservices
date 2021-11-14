@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.repository;
+package pl.reskilled.menteeManagerMicroservices.user.security.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
