@@ -1,8 +1,8 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,7 +13,6 @@ import pl.reskilled.menteeManagerMicroservices.user.security.service.MongoDetail
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MongoDetailsServiceImpl mongoDetailsService;
@@ -25,12 +24,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             "/login**",
-            "/register**",
+            "/register",
             "/csrf"
     };
 
+    public WebSecurityConfig(MongoDetailsServiceImpl mongoDetailsService) {
+        this.mongoDetailsService = mongoDetailsService;
+    }
+
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -39,6 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(mongoDetailsService)
                 .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
@@ -50,7 +59,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .formLogin().permitAll();
+                .formLogin().permitAll()
+                .defaultSuccessUrl("/home")
+                .failureUrl("/login?error=true")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true);
         http.httpBasic().disable();
 
     }

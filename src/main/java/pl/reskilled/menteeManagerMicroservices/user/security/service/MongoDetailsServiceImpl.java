@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

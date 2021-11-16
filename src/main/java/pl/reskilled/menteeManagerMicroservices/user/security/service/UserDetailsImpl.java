@@ -9,9 +9,8 @@ import java.util.Collection;
 
 public class UserDetailsImpl extends User implements UserDetails {
 
-    public UserDetailsImpl( String email, String password) {
+    public UserDetailsImpl(String email, String password) {
         super(email, password);
-
     }
 
     public static UserDetailsImpl build(User user) {
@@ -28,12 +27,12 @@ public class UserDetailsImpl extends User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return super.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return getName();
+        return super.getEmail();
     }
 
     @Override
@@ -55,5 +54,4 @@ public class UserDetailsImpl extends User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
 }
