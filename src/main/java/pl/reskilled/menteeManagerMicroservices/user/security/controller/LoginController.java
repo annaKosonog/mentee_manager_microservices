@@ -34,4 +34,10 @@ public class LoginController {
         return "redirect:/login";
 
     }
+
+    @PostMapping("/login")
+    public String showLoginForm() {
+        return "login";
+    }
+
 }
