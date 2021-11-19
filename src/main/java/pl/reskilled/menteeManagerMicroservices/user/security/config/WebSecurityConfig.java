@@ -63,9 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login?error=true")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout=true")
-                .invalidateHttpSession(true);
+                .rememberMe().tokenValiditySeconds(86400).rememberMeCookieName("refresh").rememberMeParameter("remember")
+                .and()
+                .headers().frameOptions().disable();
         http.httpBasic().disable();
 
     }

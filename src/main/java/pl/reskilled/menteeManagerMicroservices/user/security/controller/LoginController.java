@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.service.MongoDetailsServiceImpl;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 public class LoginController {
 
     private final UserService userService;
+    private final MongoDetailsServiceImpl mongoDetailsService;
 
 
     @GetMapping("/register")
@@ -28,12 +30,6 @@ public class LoginController {
     public String addNewUser(@Valid @ModelAttribute UserDto userDto) {
         userService.registerNewUserAccount(userDto);
         return "redirect:/login";
-
-    }
-
-    @PostMapping("/login")
-    public String showLoginForm() {
-        return "login";
     }
 
 }
