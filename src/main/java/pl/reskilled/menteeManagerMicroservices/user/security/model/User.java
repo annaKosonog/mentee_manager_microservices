@@ -1,5 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -8,27 +9,30 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @EqualsAndHashCode
 @ToString
-@Document(collection = "users")
+@Document(collection = "user")
 public class User {
     @Id
     private String id;
 
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
-    @Size(max = 50)
+    private String name;
+
     @Email
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private String email;
-    @NotBlank
-    @Size(max = 10)
+
     private String password;
 
-    public User(String email, String password) {
+    @Ignore
+    private String confirmPassword;
+
+    public User(String name, String email, String password, String confirmPassword) {
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.confirmPassword = confirmPassword;
     }
 
     public User() {
@@ -36,6 +40,14 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -52,5 +64,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
