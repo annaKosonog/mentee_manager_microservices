@@ -9,6 +9,6 @@ public interface SampleUserDto {
     }
 
     default UserDto afterSaveDb(){
-        return allParameterUserDto("Wacek", "zdzislaw@onet.pl", "test1", "test1");
+        return allParameterUserDto("Wacek", "test@example.pl", "test1", "test1");
     }
 }
