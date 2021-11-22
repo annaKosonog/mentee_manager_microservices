@@ -38,6 +38,14 @@ public class User {
     public User() {
     }
 
+    public User(String id, String name, @Email String email, String password, String confirmPassword) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+    }
+
     public String getId() {
         return id;
     }
