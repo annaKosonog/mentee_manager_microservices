@@ -17,16 +17,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MongoDetailsServiceImpl mongoDetailsService;
 
-    private static final String[] AUTH_WHITELIST = {
-            // -- Swagger UI v2
-            "/v2/api-docs",
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/login**",
-            "/register",
-            "/csrf"
-    };
 
     public WebSecurityConfig(MongoDetailsServiceImpl mongoDetailsService) {
         this.mongoDetailsService = mongoDetailsService;
@@ -54,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/login**", "/register**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable()

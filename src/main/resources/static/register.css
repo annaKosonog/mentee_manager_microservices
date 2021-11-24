@@ -1,68 +1,85 @@
 body {
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #eee;
     margin: 0;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
+    font-size: 15px;
     color: #212529;
-    display: block;
+    background-color: #fff;
 }
-
 .container {
     background-color: white;
     width: 300px;
     padding: 50px;
-    height: 50px;
-    margin: 0 15px;
-    flex: 1;
-    align-self: center;
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    -webkit-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+    -moz-box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
+    box-shadow: 3px 3px 30px 5px rgba(204,204,204,0.9);
 }
 
-
-input[type=text] {
-    width: 300px;
-    border: none;
-    border-bottom: 2px solid red;
-    border-radius: 5px;
+input[type=text], [type = email], [type = password]{
+    width: 200px;
+    background-color: #efefef;
     color: #666;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     font-size: 20px;
     padding: 10px;
     box-sizing: border-box;
-
+    outline: none;
+    margin-top: 10px;
 }
 
 button[type=submit] {
-    background-color: #4CAF50;
-    border: none;
+    width: 200px;
+    background-color: #007bff;
+    font-size:20px;
     color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
+    padding: 15px 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    outline: none;
 }
-.social{
-    margin-top: 30px;
-    display: flex;
+
+button[type=submit]:focus
+{
+    -webkit-box-shadow: 0px 0px 15px 5px rgba(204,204,204,0.9);
+    -moz-box-shadow: 0px 0px 15px 5px rgba(204,204,204,0.9);
+    box-shadow: 0px 0px 15px 5px rgba(204,204,204,0.9);
 }
-.social div{
-    width: 150px;
-    border-radius: 3px;
-    padding: 5px 10px 10px 5px;
-    background-color: rgba(255,255,255,0.27);
-    color: #eaf0fb;
-    text-align: center;
+input[type=text]:focus,
+input[type = email]:focus,
+input[type=password]:focus
+{
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(204,204,204,0.9);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(204,204,204,0.9);
+    box-shadow: 0px 0px 10px 2px rgba(204,204,204,0.9);
+    border: 2px solid #a5cda5;
+    background-color: #e9f3e9;
+    color: #428c42;
 }
-.social div:hover{
-    background-color: rgba(255,255,255,0.47);
+button[type=submit]:hover
+{
+    background-color: #007bff;
 }
-.social .fb{
-    margin-left: 25px;
+
+input::-webkit-input-placeholder
+{
+    color: #999;
 }
-.social i{
-    margin-right: 4px;
+input:focus::-webkit-input-placeholder
+{
+    color: #495057;
+}
+h2{
+    font-size: 2rem;
+    font-weight: 500;
+    display: block;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }

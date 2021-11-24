@@ -10,8 +10,8 @@
 <body>
 <div class="container">
     <form action="#" th:action="@{/register}" method="post" th:object="${userForm}">
-        <h1> Create Account </h1>
-        <h3>Fill the below form to create a new account</h3>
+
+        <h2 class="form-signin-heading">Please sign in</h2>
         <p>
             <input type="text" th:field="*{name}" id="name" placeholder="Name" pattern="[A-Za-z]{2,99}"
                    minlength="5" required/>
@@ -32,20 +32,20 @@
             }
         </script>
         <p>
-            <input name="password" type="password" th:field="*{password}" minlength="5" placeholder="Password" onchange="onChange()" required/>
+            <input name="password" type="password" th:field="*{password}" minlength="5" placeholder="Password"
+                   onchange="onChange()" required/>
         </p>
 
         <p>
             <input type="password" name="confirmPassword" th:field="*{confirmPassword}"
                    placeholder="Confirm Password" onchange="onChange()"
                    minlength="5" required/>
-        </p>
-
-        <input  value="1" type="checkbox" required/><label class="terms"> I accept the terms of use</label>
         <p>
+            <input value="1" type="checkbox" required/><label class="terms"> I accept the terms of use</label>
             <button type="submit" class="btn btn-primary">Submit</button>
         </p>
     </form>
 </div>
 </body>
+
 </html>

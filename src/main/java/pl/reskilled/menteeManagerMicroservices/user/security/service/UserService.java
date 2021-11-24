@@ -18,7 +18,7 @@ public class UserService {
     private final UserMapper userMapper;
 
     public User registerNewUserAccount(UserDto register) {
-        if (register.getPassword().equals(register.getConfirmPassword())) {
+        if(!userRepository.existsByEmail(register.getEmail())){
             User user = userMapper.mapRegister(register);
             LOG.info("Saving user.");
             return userRepository.save(user);
