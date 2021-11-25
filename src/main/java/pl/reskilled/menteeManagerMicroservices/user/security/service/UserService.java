@@ -1,9 +1,9 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.service;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.UserExistEmailException;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
@@ -13,19 +13,17 @@ import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepo
 @RequiredArgsConstructor
 public class UserService {
 
-    private final Logger LOG = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
     public User registerNewUserAccount(UserDto register) {
-        if(!userRepository.existsByEmail(register.getEmail())){
-            User user = userMapper.mapRegister(register);
-            LOG.info("Saving user.");
+        try {
+            final User user = userMapper.mapRegister(register);
             return userRepository.save(user);
-        } else {
-            LOG.info("You entered incorrect data: " + register.getEmail());
+        } catch (DuplicateKeyException e) {
+            throw new UserExistEmailException(register.getEmail());
         }
-        return null;
+
     }
 
 }
