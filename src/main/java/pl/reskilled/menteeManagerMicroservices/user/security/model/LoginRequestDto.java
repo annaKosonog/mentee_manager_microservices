@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 
 @ToString
 @EqualsAndHashCode
@@ -12,13 +15,17 @@ import lombok.ToString;
 @Setter
 public class LoginRequestDto {
 
-    private String name;
+    @NotBlank(message = "{username.not.blank}")
+    private String username;
+    @Email
+    @NotBlank(message = "{email.not.blank}")
     private String email;
+    @NotBlank(message = "{password.not.blank}")
     private String password;
 
 
-    public LoginRequestDto(String name, String email, String password) {
-        this.name = name;
+    public LoginRequestDto(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }

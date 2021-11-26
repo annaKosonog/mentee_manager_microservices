@@ -16,7 +16,7 @@ public class UserMapper {
 
     public User mapRegister(LoginRequestDto register) {
         final User user = new User();
-        user.setUsername(register.getName());
+        user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
         return user;
