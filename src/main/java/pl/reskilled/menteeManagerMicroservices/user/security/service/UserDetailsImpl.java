@@ -9,16 +9,15 @@ import java.util.Collection;
 
 public class UserDetailsImpl extends User implements UserDetails {
 
-    public UserDetailsImpl(String name, String email, String password, String confirmPassword) {
-        super(name, email, password, confirmPassword);
+    public UserDetailsImpl(String username, String email, String password) {
+        super(username, email, password);
     }
 
     public static UserDetailsImpl build(User user) {
         return new UserDetailsImpl(
-                user.getName(),
+                user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
-                user.getConfirmPassword());
+                user.getPassword());
     }
 
 

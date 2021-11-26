@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UserControllerErrorHandlerTest implements SampleUserErrorResponse, SampleUserExistsByUsername {
+public class UserControllerErrorHandlerTest implements SampleUserErrorResponse, SampleUserExistsByEmail {
 
     @Test
     public void should_return_user_error_conflict() {
         final String email = "wacek@wp.pl";
 
         UserControllerErrorHandler userControllerErrorHandler = new UserControllerErrorHandler();
-        final UserExistEmailException exception = sampleUserExistsByUsername(email);
+        final UserExistEmailException exception = sampleUserExistsByEmail(email);
         final UserErrorResponse expectedResponse = sampleUserErrorResponse();
 
         final UserErrorResponse actualResponse = userControllerErrorHandler.userConflict(exception);

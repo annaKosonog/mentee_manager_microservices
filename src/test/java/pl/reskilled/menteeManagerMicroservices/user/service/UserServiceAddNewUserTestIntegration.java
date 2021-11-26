@@ -11,7 +11,7 @@ import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
 import pl.reskilled.menteeManagerMicroservices.user.mapper.SampleUserDto;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
@@ -36,17 +36,17 @@ public class UserServiceAddNewUserTestIntegration implements SampleUser, SampleU
     @Test
     void should_add_user_in_database_when_email_is_unique(@Autowired UserService userService, @Autowired UserRepository userRepository) {
         //GIVEN
-        final User beforeSaveToDb = userParameterWithoutId("Wacek", "exists_email", "test1", "test1");
+        final User beforeSaveToDb = userParameterWithoutId("Wacek", "exists_email", "test1");
         userRepository.save(beforeSaveToDb);
 
-        final UserDto userDto = afterSaveDb();
+        final LoginRequestDto loginRequestDto = afterSaveDb();
         then(userRepository.existsByEmail("exists_email")).isTrue();
 
         //WHEN
-        final User checkUserEmailBeforeSaveDb = userService.registerNewUserAccount(userDto);
+        final User checkUserEmailBeforeSaveDb = userService.registerNewUserAccount(loginRequestDto);
 
         //THEN
-        assertThat(userDto.getEmail()).isEqualTo(checkUserEmailBeforeSaveDb.getEmail());
+        assertThat(loginRequestDto.getEmail()).isEqualTo(checkUserEmailBeforeSaveDb.getEmail());
         assertThat(userRepository.existsByEmail("test@example.pl")).isTrue();
     }
 }

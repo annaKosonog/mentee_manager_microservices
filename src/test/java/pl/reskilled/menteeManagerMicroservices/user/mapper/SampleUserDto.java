@@ -1,14 +1,14 @@
 package pl.reskilled.menteeManagerMicroservices.user.mapper;
 
-import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
 
 public interface SampleUserDto {
 
-    default UserDto allParameterUserDto(String name, String email, String password, String confirmPassword){
-        return new UserDto(name, email,password, confirmPassword);
+    default LoginRequestDto allParameterUserDto(String name, String email, String password){
+        return new LoginRequestDto(name, email,password);
     }
 
-    default UserDto afterSaveDb(){
-        return allParameterUserDto("Wacek", "test@example.pl", "test1", "test1");
+    default LoginRequestDto afterSaveDb(){
+        return allParameterUserDto("Wacek", "test@example.pl", "test1");
     }
 }

@@ -3,7 +3,7 @@ package pl.reskilled.menteeManagerMicroservices.user.security.mapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
 
 @Component
 public class UserMapper {
@@ -14,9 +14,9 @@ public class UserMapper {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User mapRegister(UserDto register) {
+    public User mapRegister(LoginRequestDto register) {
         final User user = new User();
-        user.setName(register.getName());
+        user.setUsername(register.getName());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
         return user;

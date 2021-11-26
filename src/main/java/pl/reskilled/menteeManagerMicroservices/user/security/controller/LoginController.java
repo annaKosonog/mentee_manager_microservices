@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.UserDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
 import javax.validation.Valid;
@@ -20,13 +20,13 @@ public class LoginController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("userForm", new UserDto());
+        model.addAttribute("userForm", new LoginRequestDto());
         return "register";
     }
 
     @PostMapping("/register")
-    public String addNewUser(@Valid @ModelAttribute UserDto userDto) {
-        userService.registerNewUserAccount(userDto);
+    public String addNewUser(@Valid @ModelAttribute LoginRequestDto loginRequestDto) {
+        userService.registerNewUserAccount(loginRequestDto);
         return "redirect:/home";
     }
 

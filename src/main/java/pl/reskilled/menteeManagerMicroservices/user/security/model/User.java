@@ -1,6 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -17,7 +16,7 @@ public class User {
     @Id
     private String id;
 
-    private String name;
+    private String username;
 
     @Email
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
@@ -25,37 +24,33 @@ public class User {
 
     private String password;
 
-    @Ignore
-    private String confirmPassword;
 
-    public User(String name, String email, String password, String confirmPassword) {
-        this.name = name;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public User() {
     }
 
-    public User(String id, String name, @Email String email, String password, String confirmPassword) {
+    public User(String id, String username, @Email String email, String password) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -72,13 +67,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 }
