@@ -1,13 +1,15 @@
 package pl.reskilled.menteeManagerMicroservices.user.security;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @ToString
 public class MessageResponse {
 
-    private final String message;
+    private  String message;
 }

@@ -8,7 +8,7 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
-import pl.reskilled.menteeManagerMicroservices.user.mapper.SampleUserDto;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginRequestDto;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
@@ -22,7 +22,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest(classes = MenteeManagerMicroservices.class)
 @ActiveProfiles("container")
 @Testcontainers
-public class UserServiceAddNewUserTestIntegration implements SampleUser, SampleUserDto {
+public class UserServiceAddNewLoginRequestTestIntegration implements SampleUser, SampleLoginRequestDto {
 
     @Container
     private static final MongoDBContainer container = new MongoDBContainer("mongo:4.2")
@@ -36,11 +36,11 @@ public class UserServiceAddNewUserTestIntegration implements SampleUser, SampleU
     @Test
     void should_add_user_in_database_when_email_is_unique(@Autowired UserService userService, @Autowired UserRepository userRepository) {
         //GIVEN
-        final User beforeSaveToDb = userParameterWithoutId("Wacek", "exists_email", "test1");
+        final User beforeSaveToDb = userParametersWithoutId("Wacek", "test@example.pl", "test1");
         userRepository.save(beforeSaveToDb);
 
-        final LoginRequestDto loginRequestDto = afterSaveDb();
-        then(userRepository.existsByEmail("exists_email")).isTrue();
+        final LoginRequestDto loginRequestDto = userTestDto();
+        then(userRepository.existsByEmail("test@example.pl")).isTrue();
 
         //WHEN
         final User checkUserEmailBeforeSaveDb = userService.registerNewUserAccount(loginRequestDto);

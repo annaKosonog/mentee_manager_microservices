@@ -12,7 +12,7 @@ public interface SampleUser {
         return new LoginRequestDto(name, email, password);
     }
 
-    default User userParameterWithoutId(String name, String email, String password) {
+    default User userParametersWithoutId(String name, String email, String password) {
         final User user = new User();
         user.setUsername(name);
         user.setEmail(email);
@@ -29,6 +29,6 @@ public interface SampleUser {
     }
 
     default User beforeSaveDb() {
-        return userParameterWithoutId("Wacek", "zdzislaw@onet.pl", "test1");
+        return userParametersWithoutId("Wacek", "zdzislaw@onet.pl", "test1");
     }
 }

@@ -2,7 +2,7 @@ package pl.reskilled.menteeManagerMicroservices.user.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
-import pl.reskilled.menteeManagerMicroservices.user.mapper.SampleUserDto;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginRequestDto;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleMessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;
@@ -16,7 +16,7 @@ import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class AuthControllerTest implements SampleUserDto, SampleUser, SampleMessageResponse {
+public class AuthControllerTest implements SampleLoginRequestDto, SampleUser, SampleMessageResponse {
 
 
     @Test
@@ -28,7 +28,7 @@ public class AuthControllerTest implements SampleUserDto, SampleUser, SampleMess
         final UserService userService = new UserService(userRepository, userMapper);
 
 
-        final LoginRequestDto loginRequestDto = allParameterUserDto("user", "user@contact.pl", "test1");
+        final LoginRequestDto loginRequestDto = loginRequestDtoWithoutId("user", "user@contact.pl", "test1");
         final User saveToDb = userService.registerNewUserAccount(loginRequestDto);
 
         final AuthController authController = new AuthController(null, userRepository, userService);
