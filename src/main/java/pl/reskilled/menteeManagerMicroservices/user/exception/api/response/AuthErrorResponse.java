@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class UserErrorResponse {
+public class AuthErrorResponse {
 
     public final HttpStatus status;
     public final String message;

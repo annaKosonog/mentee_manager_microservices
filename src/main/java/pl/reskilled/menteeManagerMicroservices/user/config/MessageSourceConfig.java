@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.AuthControllerErrorHandler;
 
 import java.nio.charset.StandardCharsets;
 
@@ -26,5 +27,10 @@ public class MessageSourceConfig {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+
+    @Bean
+    AuthControllerErrorHandler userControllerErrorHandler(){
+        return new AuthControllerErrorHandler();
     }
 }

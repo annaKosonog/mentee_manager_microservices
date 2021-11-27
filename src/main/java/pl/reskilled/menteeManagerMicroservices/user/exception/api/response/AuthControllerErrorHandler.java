@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @Slf4j
-public class UserControllerErrorHandler {
+public class AuthControllerErrorHandler {
 
 
     @ExceptionHandler({InvalidDataAccessApiUsageException.class, DataAccessException.class, UserExistEmailException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public UserErrorResponse userConflict(UserExistEmailException exception) {
+    public AuthErrorResponse userConflict(UserExistEmailException exception) {
         String message = "The given email already exists in the database: " + exception.getInfo();
         log.info("Conflict: {}", exception.getMessage());
         log.debug("Conflict: ", exception);
-        return new UserErrorResponse(HttpStatus.CONFLICT, message);
+        return new AuthErrorResponse(HttpStatus.CONFLICT, message);
     }
 
 

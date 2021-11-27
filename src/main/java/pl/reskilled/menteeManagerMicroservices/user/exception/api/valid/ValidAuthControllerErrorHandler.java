@@ -13,7 +13,7 @@ import java.util.Map;
 
 @ControllerAdvice
 @Slf4j
-public class LoginControllerErrorHandler {
+public class ValidAuthControllerErrorHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
