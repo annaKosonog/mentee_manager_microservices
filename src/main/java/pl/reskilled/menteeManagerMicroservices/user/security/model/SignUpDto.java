@@ -1,17 +1,17 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequestDto {
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode
+public class SignUpDto {
 
     @NotBlank(message = "{username.not.blank}")
     private String username;
@@ -20,5 +20,4 @@ public class LoginRequestDto {
     private String email;
     @NotBlank(message = "{password.not.blank}")
     private String password;
-
 }

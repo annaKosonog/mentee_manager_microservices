@@ -8,10 +8,10 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
-import pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
@@ -22,7 +22,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest(classes = MenteeManagerMicroservices.class)
 @ActiveProfiles("container")
 @Testcontainers
-public class UserServiceAddNewLoginRequestTestIntegration implements SampleUser, SampleLoginRequestDto {
+public class UserServiceAddNewUserTestIntegration implements SampleUser, SampleSignUp {
 
     @Container
     private static final MongoDBContainer container = new MongoDBContainer("mongo:4.2")
@@ -39,14 +39,14 @@ public class UserServiceAddNewLoginRequestTestIntegration implements SampleUser,
         final User beforeSaveToDb = userParametersWithoutId("Wacek", "test@example.pl", "test1");
         userRepository.save(beforeSaveToDb);
 
-        final LoginRequestDto loginRequestDto = userTestDto();
+        final SignUpDto signUpDto = registerUser();
         then(userRepository.existsByEmail("test@example.pl")).isTrue();
 
         //WHEN
-        final User checkUserEmailBeforeSaveDb = userService.registerNewUserAccount(loginRequestDto);
+        final User checkUserEmailBeforeSaveDb = userService.registerNewUserAccount(signUpDto);
 
         //THEN
-        assertThat(loginRequestDto.getEmail()).isEqualTo(checkUserEmailBeforeSaveDb.getEmail());
+        assertThat(signUpDto.getEmail()).isEqualTo(checkUserEmailBeforeSaveDb.getEmail());
         assertThat(userRepository.existsByEmail("test@example.pl")).isTrue();
     }
 }

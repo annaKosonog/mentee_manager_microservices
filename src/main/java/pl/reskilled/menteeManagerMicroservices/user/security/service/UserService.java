@@ -3,7 +3,7 @@ package pl.reskilled.menteeManagerMicroservices.user.security.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 
@@ -14,8 +14,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public User registerNewUserAccount(LoginRequestDto register) {
-        final User user = userMapper.mapRegister(register);
+    public User registerNewUserAccount(SignUpDto signUpDto) {
+        final User user = userMapper.mapRegister(signUpDto);
         return userRepository.save(user);
     }
 

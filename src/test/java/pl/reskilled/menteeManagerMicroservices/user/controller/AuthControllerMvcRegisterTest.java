@@ -14,10 +14,10 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
-import pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("container_test")
-public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, SampleUser {
+public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
 
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.2")
@@ -48,7 +48,7 @@ public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, Sam
     @Test
     void should_return_new_user_add_to_db(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper, @Autowired UserRepository userRepository) throws Exception {
         then(userRepository.existsByEmail("test@contact.pl")).isFalse();
-        final LoginRequestDto beforeToSaveDb = loginRequestDtoWithoutId("Wacek", "test@contact.pl", "test1");
+        final SignUpDto beforeToSaveDb = allParameterSignUpDto("Wacek", "test@contact.pl", "test1");
         final String expected = objectMapper.writeValueAsString(beforeToSaveDb);
 
         final MvcResult createUser = mockMvc.perform(post("/api/signup")
@@ -67,7 +67,7 @@ public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, Sam
     @Test
     void should_return_request_code_http_400_when_will_not_provide_a_username(@Autowired MockMvc mockMvc,
                                                                               @Autowired ObjectMapper objectMapper) throws Exception {
-        final LoginRequestDto user = loginRequestDtoWithoutId("", "test@contact.pl", "admin");
+        final SignUpDto user = allParameterSignUpDto("", "test@contact.pl", "admin");
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "Username may not be blank";
 
@@ -88,7 +88,7 @@ public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, Sam
     @Test
     void should_return_request_code_http_400_when_will_not_provide_an_email(@Autowired MockMvc mockMvc,
                                                                             @Autowired ObjectMapper objectMapper) throws Exception {
-        final LoginRequestDto user = loginRequestDtoWithoutId("Wacek", "", "admin");
+        final SignUpDto user = allParameterSignUpDto("Wacek", "", "admin");
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "Email may not be blank";
 
@@ -109,7 +109,7 @@ public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, Sam
     @Test
     void should_return_request_code_http_400_when_will_provide_wrong_format_an_email(@Autowired MockMvc mockMvc,
                                                                                      @Autowired ObjectMapper objectMapper) throws Exception {
-        final LoginRequestDto user = loginRequestDtoWithoutId("Wacek", "test", "admin");
+        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "admin");
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "must be a well-formed email address";
 
@@ -131,21 +131,21 @@ public class AuthControllerMvcRegisterTest implements SampleLoginRequestDto, Sam
                                                              @Autowired UserRepository userRepository) {
         //GIVEN
 
-        final LoginRequestDto loginRequestDto = userTestDto();
+        final SignUpDto uniqueEmail = registerUser();
         then(userRepository.existsByEmail("test@contact.pl")).isFalse();
 
         //WHEN
-        final User actual = userService.registerNewUserAccount(loginRequestDto);
+        final User actual = userService.registerNewUserAccount(uniqueEmail);
 
         //THEN
 
-        assertThat(loginRequestDto.getEmail()).isEqualTo(actual.getEmail());
+        assertThat(uniqueEmail.getEmail()).isEqualTo(actual.getEmail());
         assertThat(userRepository.existsByEmail("test@contact.pl")).isTrue();
     }
 
     @Test
     void should_return_http_code_400_when_try_to_add_user_without_password(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper, @Autowired UserRepository userRepository) throws Exception {
-        final LoginRequestDto user = loginRequestDtoWithoutId("Wacek", "test", "");
+        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "");
         final String signInExpected = objectMapper.writeValueAsString(user);
 
         final String expectedResponse = "Password may not be blank";

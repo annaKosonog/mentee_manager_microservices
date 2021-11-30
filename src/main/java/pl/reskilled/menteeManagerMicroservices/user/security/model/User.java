@@ -31,4 +31,9 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    public User(@Email String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

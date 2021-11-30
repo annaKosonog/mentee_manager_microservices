@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
+import pl.reskilled.menteeManagerMicroservices.user.security.service.UserDetailsImpl;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
 import javax.validation.Valid;
@@ -31,21 +33,22 @@ public class AuthController {
 
 
     @PostMapping("/signin")
-    public ResponseEntity<String> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<String> authenticateUser(@Valid @RequestBody LoginDto loginDto) {
         LOGGER.info("------------ auth 1 -------- ");
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<MessageResponse> registerNewUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
-        if (userRepository.existsByEmail(loginRequestDto.getEmail())) {
+    public ResponseEntity<MessageResponse> registerNewUser(@Valid @RequestBody SignUpDto signUpDto) {
+        if (userRepository.existsByEmail(signUpDto.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
-        userService.registerNewUserAccount(loginRequestDto);
+        userService.registerNewUserAccount(signUpDto);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

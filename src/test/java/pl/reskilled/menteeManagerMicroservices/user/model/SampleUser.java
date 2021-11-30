@@ -2,14 +2,14 @@ package pl.reskilled.menteeManagerMicroservices.user.model;
 
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginRequestDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginDto;
 
 public interface SampleUser {
 
     UserMapper userMapper = null;
 
-    default LoginRequestDto userDto(String name, String email, String password) {
-        return new LoginRequestDto(name, email, password);
+    default LoginDto userDto( String email, String password) {
+        return new LoginDto(email, password);
     }
 
     default User userParametersWithoutId(String name, String email, String password) {
