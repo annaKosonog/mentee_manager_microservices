@@ -1,17 +1,20 @@
-package pl.reskilled.menteeManagerMicroservices.user.controller;
+package java.pl.reskilled.menteeManagerMicroservices.user.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleMessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
-import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.controller.AuthController;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
+
+import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -28,7 +31,7 @@ public class AuthControllerTest implements SampleSignUp, SampleUser, SampleMessa
         final UserService userService = new UserService(userRepository, userMapper);
 
 
-        final SignUpDto signUpDto= allParameterSignUpDto("user", "user@contact.pl", "test1");
+        final SignUpDto signUpDto= allParameterSignUpDto("user", "user@contact.pl", "test1", Collections.singleton(Authority.USER));
         final User saveToDb = userService.registerNewUserAccount(signUpDto);
 
         final AuthController authController = new AuthController(null, userRepository, userService);

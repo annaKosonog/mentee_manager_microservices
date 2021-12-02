@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,10 +28,14 @@ public class User {
 
     private String password;
 
-    public User(String username, String email, String password) {
+    private Set<Authority> roles = new HashSet<>();
+
+
+    public User(String username, String email, String password, Set<Authority> roles) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public User(@Email String email, String password) {

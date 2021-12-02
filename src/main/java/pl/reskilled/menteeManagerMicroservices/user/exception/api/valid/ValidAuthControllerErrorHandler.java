@@ -1,6 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.user.exception.api.valid;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,7 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-@Slf4j
 public class ValidAuthControllerErrorHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -19,6 +19,7 @@ public class UserMapper {
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
+        user.setRoles(register.getRoles());
         return user;
     }
 }

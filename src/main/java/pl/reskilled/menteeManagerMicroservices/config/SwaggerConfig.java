@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.config;
+package pl.reskilled.menteeManagerMicroservices.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,6 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
-                .paths(PathSelectors.any())
                 .build();
     }
 }

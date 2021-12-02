@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.config;
+package pl.reskilled.menteeManagerMicroservices.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
