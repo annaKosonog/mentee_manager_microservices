@@ -30,10 +30,10 @@ public interface SampleUser {
     }
 
     default User saveDb() {
-        return allParameters("619568ac09f09b5a3c24d6d1", "Wacek", "zdzislaw@onet.pl", "test1", Collections.singleton(Authority.USER));
+        return allParameters("619568ac09f09b5a3c24d6d1", "Wacek", "zdzislaw@onet.pl", "test1", Collections.singleton(Authority.STUDENT));
     }
 
     default User beforeSaveDb() {
-        return userParametersWithoutId("Wacek", "zdzislaw@onet.pl", "test1", Collections.singleton(Authority.USER));
+        return userParametersWithoutId("Wacek", "zdzislaw@onet.pl", "test1", Collections.singleton(Authority.STUDENT));
     }
 }

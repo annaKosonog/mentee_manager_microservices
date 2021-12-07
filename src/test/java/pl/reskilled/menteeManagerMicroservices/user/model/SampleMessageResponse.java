@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.model;
+package java.pl.reskilled.menteeManagerMicroservices.user.model;
 
 import org.springframework.http.ResponseEntity;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;

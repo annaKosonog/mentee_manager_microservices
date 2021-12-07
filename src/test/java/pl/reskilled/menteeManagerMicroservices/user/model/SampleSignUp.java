@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.model;
+package java.pl.reskilled.menteeManagerMicroservices.user.model;
 
 import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
@@ -13,6 +13,6 @@ public interface SampleSignUp {
     }
 
     default SignUpDto registerUser(){
-        return allParameterSignUpDto("test", "test@example.pl", "test1", Collections.singleton(Authority.USER));
+        return allParameterSignUpDto("test", "test@example.pl", "test1", Collections.singleton(Authority.STUDENT));
     }
 }

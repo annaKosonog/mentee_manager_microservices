@@ -3,12 +3,10 @@ package pl.reskilled.menteeManagerMicroservices.user.security.service;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 
 public class UserDetailsImpl extends User implements UserDetails {
@@ -26,10 +24,7 @@ public class UserDetailsImpl extends User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Authority> roles = getRoles();
-        return roles.stream().map(role -> new SimpleGrantedAuthority
-                (role.getAuthority())).
-                collect(Collectors.toList());
+        return Collections.singleton(new SimpleGrantedAuthority("STUDENT"));
     }
 
 
