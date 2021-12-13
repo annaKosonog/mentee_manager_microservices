@@ -8,8 +8,8 @@ import java.util.Set;
 
 public interface SampleSignUp {
 
-    default SignUpDto allParameterSignUpDto(String username, String email, String password, Set<Authority> roles){
-        return new SignUpDto(username,email,password, roles);
+    default SignUpDto allParameterSignUpDto(String username, String email, String password, Set<Authority> authorities){
+        return new SignUpDto(username,email,password, authorities);
     }
 
     default SignUpDto registerUser(){

@@ -1,20 +1,21 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.valid.UserRoleValid;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode
 public class SignUpDto {
 
@@ -26,6 +27,6 @@ public class SignUpDto {
     @NotBlank(message = "{password.not.blank}")
     private String password;
 
-    @JsonIgnore
-    private Set< @NotBlank @NotNull Authority> roles = new HashSet<>();
+    @UserRoleValid(targetClassType = Authority.class)
+    private Set<Authority> authorities = new HashSet<>();
 }

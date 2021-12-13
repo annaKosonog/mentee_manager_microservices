@@ -3,7 +3,7 @@ package java.pl.reskilled.menteeManagerMicroservices.user.controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 import pl.reskilled.menteeManagerMicroservices.user.security.MessageResponse;
-import pl.reskilled.menteeManagerMicroservices.user.security.controller.AuthController;
+import pl.reskilled.menteeManagerMicroservices.user.security.controller.dto.AuthController;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;

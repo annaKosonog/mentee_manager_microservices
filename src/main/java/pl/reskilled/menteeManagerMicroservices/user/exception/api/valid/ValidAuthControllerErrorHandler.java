@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,19 @@ public class ValidAuthControllerErrorHandler {
             errors.put(fieldName, errorMessage);
         });
         return errors;
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class) // #2
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // #3
+    @ResponseBody
+    public ValidationErrorResponse validationError(ConstraintViolationException exception) {
+        ValidationErrorResponse response = new ValidationErrorResponse();
+
+        exception.getConstraintViolations().stream().map(error -> new ValidationError(
+                error.getPropertyPath().toString(),
+                error.getMessage())).forEach(response::addError);
+
+        return response;
     }
 
 }

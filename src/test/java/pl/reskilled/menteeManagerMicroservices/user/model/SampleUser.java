@@ -16,17 +16,17 @@ public interface SampleUser {
         return new LoginDto(email, password);
     }
 
-    default User userParametersWithoutId(String name, String email, String password, Set<Authority> roles) {
+    default User userParametersWithoutId(String name, String email, String password, Set<Authority> authorities) {
         final User user = new User();
         user.setUsername(name);
         user.setEmail(email);
         user.setPassword(password);
-        user.setRoles(roles);
+        user.setAuthorities(authorities);
         return user;
     }
 
-    default User allParameters(String id, String name, String email, String password, Set<Authority> roles) {
-        return new User(id, name, email, password, roles);
+    default User allParameters(String id, String name, String email, String password, Set<Authority> authorities) {
+        return new User(id, name, email, password, authorities);
     }
 
     default User saveDb() {

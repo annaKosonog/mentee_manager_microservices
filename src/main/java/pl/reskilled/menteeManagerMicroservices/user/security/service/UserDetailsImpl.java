@@ -1,12 +1,7 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.service;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-
-import java.util.Collection;
-import java.util.Collections;
 
 
 public class UserDetailsImpl extends User implements UserDetails {
@@ -20,11 +15,6 @@ public class UserDetailsImpl extends User implements UserDetails {
         return new UserDetailsImpl(
                 user.getEmail(),
                 user.getPassword());
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("STUDENT"));
     }
 
 

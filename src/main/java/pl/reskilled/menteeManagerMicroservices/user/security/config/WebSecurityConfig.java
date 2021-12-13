@@ -26,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/csrf", "/",
             "/login**",
             "/api/signin",
-            "/api/signup"
+            "/api/signup",
+            "/api/students"
     };
 
     public WebSecurityConfig(MongoDetailsServiceImpl mongoDetailsService) {

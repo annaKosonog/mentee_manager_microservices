@@ -6,7 +6,7 @@ import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 
-import java.util.Collections;
+import java.util.Set;
 
 @Component
 public class UserMapper {
@@ -22,7 +22,18 @@ public class UserMapper {
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
-        user.setRoles(Collections.singleton(Authority.STUDENT));
+        user.setAuthorities(register.getAuthorities());
         return user;
+    }
+
+    public SignUpDto mapToSignUpDto(User from) {
+        Set<Authority> authorities = from.getAuthorities();
+
+        final SignUpDto signUpDto = new SignUpDto();
+        signUpDto.setUsername(from.getUsername());
+        signUpDto.setEmail(from.getEmail());
+        signUpDto.setPassword(from.getPassword());
+        signUpDto.setAuthorities(authorities);
+        return signUpDto;
     }
 }

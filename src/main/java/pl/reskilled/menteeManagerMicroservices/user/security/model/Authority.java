@@ -6,15 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 @Getter
 public enum Authority implements GrantedAuthority {
 
+    STUDENT,
+    MENTOR;
 
-    STUDENT("student"),
-    MENTEE("mentee");
-
-    private String roles;
-
-    Authority(String roles) {
-        this.roles = roles;
-    }
 
     @Override
     public String getAuthority() {

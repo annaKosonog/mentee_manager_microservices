@@ -28,14 +28,15 @@ public class User {
 
     private String password;
 
-    private Set<Authority> roles = new HashSet<>();
+
+    private Set<Authority> authorities = new HashSet<>();
 
 
-    public User(String username, String email, String password, Set<Authority> roles) {
+    public User(String username, String email, String password, Set<Authority> authorities) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        this.authorities = authorities;
     }
 
     public User(@Email String email, String password) {
