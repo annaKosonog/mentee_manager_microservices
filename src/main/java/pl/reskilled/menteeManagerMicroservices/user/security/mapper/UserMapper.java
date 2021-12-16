@@ -2,11 +2,8 @@ package pl.reskilled.menteeManagerMicroservices.user.security.mapper;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
-
-import java.util.Set;
 
 @Component
 public class UserMapper {
@@ -17,23 +14,21 @@ public class UserMapper {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User mapRegister(SignUpDto register) {
-        final User user = new User();
-        user.setUsername(register.getUsername());
-        user.setEmail(register.getEmail());
-        user.setPassword(passwordEncoder.encode(register.getPassword()));
-        user.setAuthorities(register.getAuthorities());
-        return user;
+    public User mapRegisterToUser(SignUpDto register) {
+        return User.builder()
+                .username(register.getUsername())
+                .email(register.getEmail())
+                .password(passwordEncoder.encode(register.getPassword()))
+                .authorities(register.getAuthorities())
+                .build();
     }
 
     public SignUpDto mapToSignUpDto(User from) {
-        Set<Authority> authorities = from.getAuthorities();
-
-        final SignUpDto signUpDto = new SignUpDto();
-        signUpDto.setUsername(from.getUsername());
-        signUpDto.setEmail(from.getEmail());
-        signUpDto.setPassword(from.getPassword());
-        signUpDto.setAuthorities(authorities);
-        return signUpDto;
+        return SignUpDto.builder()
+                .username(from.getUsername())
+                .email(from.getEmail())
+                .password(from.getPassword())
+                .authorities(from.getAuthorities())
+                .build();
     }
 }

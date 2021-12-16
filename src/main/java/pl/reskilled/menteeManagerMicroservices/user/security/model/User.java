@@ -1,8 +1,7 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -12,10 +11,10 @@ import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 @Document(collection = "user")
+@Builder
 public class User {
     @Id
     private String id;
@@ -42,5 +41,8 @@ public class User {
     public User(@Email String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public User() {
     }
 }

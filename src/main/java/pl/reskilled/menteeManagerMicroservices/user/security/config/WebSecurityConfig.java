@@ -60,8 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/addMentee").hasRole("STUDENT")
                 .anyRequest().authenticated()
                 .and()
-                .headers().frameOptions().disable()
-                .and()
                 .formLogin().permitAll()
                 .defaultSuccessUrl("/home")
                 .failureUrl("/login?error=true")

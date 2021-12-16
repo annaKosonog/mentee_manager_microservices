@@ -9,7 +9,7 @@ public class UserExistEmailException extends RuntimeException {
     private final String info;
 
     public UserExistEmailException(String email) {
-        super(String.format("The given email already exists in the database: "  + email));
+        super("The given email already exists in the database: "  + email);
         this.info = email;
     }
 }

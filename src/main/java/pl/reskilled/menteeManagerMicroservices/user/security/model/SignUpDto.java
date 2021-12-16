@@ -1,10 +1,10 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.valid.UserRoleValid;
 
 import javax.validation.constraints.Email;
@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+@Builder
 @EqualsAndHashCode
 public class SignUpDto {
 

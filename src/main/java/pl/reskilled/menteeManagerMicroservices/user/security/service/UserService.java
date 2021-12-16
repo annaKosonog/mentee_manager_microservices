@@ -18,7 +18,7 @@ public class UserService {
     private final UserMapper userMapper;
 
     public User registerNewUserAccount(SignUpDto signUpDto) {
-        final User user = userMapper.mapRegister(signUpDto);
+        final User user = userMapper.mapRegisterToUser(signUpDto);
         return userRepository.save(user);
     }
 
