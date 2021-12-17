@@ -37,7 +37,7 @@ public class AuthControllerTest implements SampleSignUp, SampleUser, SampleMessa
         final AuthController authController = new AuthController(null, userRepository, userService);
 
         //WHEN
-        final ResponseEntity<MessageResponse> actualResponse = authController.registerNewUser(signUpDto);
+        final ResponseEntity<MessageResponse> actualResponse = authController.registerAddNewUser(signUpDto);
 
         //THEN
         assertThat(actualResponse.toString()).isEqualTo(expectedResponse.toString());

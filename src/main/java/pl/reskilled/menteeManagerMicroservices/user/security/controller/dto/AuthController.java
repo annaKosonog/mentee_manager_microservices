@@ -48,8 +48,8 @@ public class AuthController {
     }
 
 
-    @PostMapping("/signup")
-    public ResponseEntity<MessageResponse> registerNewUser(@Valid @RequestBody SignUpDto signUpDto) {
+    @PostMapping("/students/add")
+    public ResponseEntity<MessageResponse> registerAddNewUser(@Valid @RequestBody SignUpDto signUpDto) {
         if (userRepository.existsByEmail(signUpDto.getEmail())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
