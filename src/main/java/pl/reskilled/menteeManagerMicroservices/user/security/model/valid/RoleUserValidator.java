@@ -13,25 +13,22 @@ public class RoleUserValidator implements ConstraintValidator<UserRoleValid, Set
 
     private static Logger LOG = LoggerFactory.getLogger(RoleUserValidator.class);
 
-    String[] values;
+    Authority[] subset;
 
     @Override
     public void initialize(UserRoleValid constraintAnnotation) {
-        values = constraintAnnotation.allowedValues();
+        subset = constraintAnnotation.anyOf();
     }
 
 
     @Override
     public boolean isValid(Set<Authority> authority, ConstraintValidatorContext constraintValidatorContext) {
-        String message = "Choose STUDENT or MENTOR";
         if (authority.contains(Authority.STUDENT) || authority.contains(Authority.MENTOR)) {
             LOG.info("Correct role: ");
             return true;
         } else {
-            constraintValidatorContext.buildConstraintViolationWithTemplate(message);
             LOG.error(" \b The user has entered his STUDENT/MENTOR role incorrectly ");
             return false;
-
         }
     }
 }

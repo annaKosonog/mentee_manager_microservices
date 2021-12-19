@@ -17,7 +17,6 @@ public class UserDetailsImpl extends User implements UserDetails {
                 user.getPassword());
     }
 
-
     @Override
     public String getPassword() {
         return super.getPassword();

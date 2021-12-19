@@ -1,5 +1,7 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model.valid;
 
+import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -16,9 +18,9 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface UserRoleValid {
 
-    String message() default "Choose STUDENT vs MENTOR ";
+    Authority[] anyOf();
 
-    String[] allowedValues() default {"STUDENT", "MENTOR"};
+    String message() default "Must be any of {anyOf}";
 
     Class<?>[] groups() default {};
 
