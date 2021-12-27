@@ -1,9 +1,9 @@
-package java.pl.reskilled.menteeManagerMicroservices.user.model;
+package pl.reskilled.menteeManagerMicroservices.user.model;
 
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginDto;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.Authority;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.LoginDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.User;
 
 import java.util.Collections;
 import java.util.Set;

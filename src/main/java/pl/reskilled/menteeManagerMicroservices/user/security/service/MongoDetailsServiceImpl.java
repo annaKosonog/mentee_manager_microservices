@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 
 @Service
@@ -17,7 +17,7 @@ public class MongoDetailsServiceImpl implements UserDetailsService {
     private static final String USER_NOT_FOUND = "User not found: ";
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND + email));

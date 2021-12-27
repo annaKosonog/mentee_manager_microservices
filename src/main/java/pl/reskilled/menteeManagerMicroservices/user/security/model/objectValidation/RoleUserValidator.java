@@ -1,8 +1,8 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.model.valid;
+package pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.Authority;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.Authority;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -28,7 +28,7 @@ public class RoleUserValidator implements ConstraintValidator<UserRoleValid, Set
             return true;
         } else {
             LOG.error(" \b The user has entered his STUDENT/MENTOR role incorrectly ");
-            return false;
         }
+            return false;
     }
 }

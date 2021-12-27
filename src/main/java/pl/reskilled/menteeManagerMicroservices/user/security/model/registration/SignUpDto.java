@@ -1,11 +1,11 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.model;
+package pl.reskilled.menteeManagerMicroservices.user.security.model.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.valid.UserRoleValid;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.UserRoleValid;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -27,6 +27,6 @@ public class SignUpDto {
     @NotBlank(message = "{password.not.blank}")
     private String password;
 
-    @UserRoleValid(anyOf = {Authority.STUDENT, Authority.MENTOR}, targetClassType = Authority.class)
+    @UserRoleValid(anyOf = {Authority.STUDENT, Authority.MENTOR})
     private Set<Authority> authorities = new HashSet<>();
 }

@@ -1,13 +1,14 @@
-package java.pl.reskilled.menteeManagerMicroservices.user.service;
+package pl.reskilled.menteeManagerMicroservices.user.service;
 
 import org.junit.jupiter.api.Test;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
+import pl.reskilled.menteeManagerMicroservices.user.security.mapper.StudentMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.repository.StudentRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
-
-import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
-import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -19,8 +20,10 @@ public class UserServiceAddNewUserTest implements SampleUser, SampleSignUp {
 
     UserRepository userRepository = mock(UserRepository.class);
     UserMapper userMapper = mock(UserMapper.class);
+    final StudentMapper studentMapper = mock(StudentMapper.class);
+    final StudentRepository studentRepository = mock(StudentRepository.class);
 
-    UserService userService = new UserService(userRepository, userMapper);
+    UserService userService = new UserService(userRepository, studentRepository, userMapper, studentMapper);
 
     @Test
     public void should_return_add_new_user() {

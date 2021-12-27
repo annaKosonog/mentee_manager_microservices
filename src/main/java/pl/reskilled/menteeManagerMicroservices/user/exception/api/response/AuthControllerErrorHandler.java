@@ -1,20 +1,19 @@
 package pl.reskilled.menteeManagerMicroservices.user.exception.api.response;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import pl.reskilled.menteeManagerMicroservices.user.exception.api.valid.MessageResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 @Slf4j
@@ -33,19 +32,19 @@ public class AuthControllerErrorHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseBody
-    public ResponseEntity handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public MessageResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
 
-        List<String> errors = new ArrayList<>();
+        final List<String> message = getResponse(ex);
+        log.info("Bad Request: {}", ex.getMessage());
+        log.debug("Bad Request: ", ex);
 
-        ex.getAllErrors().forEach(error -> errors.add((error.getDefaultMessage())));
-
-        Map<String, Object> errorResponse = new HashMap<>();
-        errorResponse.put("errors", errors);
-        errorResponse.put("status", HttpStatus.BAD_REQUEST.toString());
-
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-
-
+        return new MessageResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+    public List<String> getResponse(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.toList());
     }
 }

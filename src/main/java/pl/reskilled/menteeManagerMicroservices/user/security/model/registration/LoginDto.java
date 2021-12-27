@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.model;
+package pl.reskilled.menteeManagerMicroservices.user.security.model.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

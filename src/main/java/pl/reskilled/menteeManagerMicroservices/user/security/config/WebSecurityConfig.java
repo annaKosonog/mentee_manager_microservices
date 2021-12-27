@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +14,10 @@ import pl.reskilled.menteeManagerMicroservices.user.security.service.MongoDetail
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        //securedEnabled = true,
+        // jsr250Enabled = true
+        prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MongoDetailsServiceImpl mongoDetailsService;
@@ -26,8 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/csrf", "/",
             "/login**",
             "/api/signin",
-            "/api/signup",
-            "/api/students"
+            "/api/signup"
     };
 
     public WebSecurityConfig(MongoDetailsServiceImpl mongoDetailsService) {
@@ -54,10 +58,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/api/addMentee").hasRole("STUDENT")
+                .antMatchers("api/students").hasAnyRole("STUDENT", "MENTOR")
+                .antMatchers("api/students/add").hasAnyRole("STUDENT", "MENTOR")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

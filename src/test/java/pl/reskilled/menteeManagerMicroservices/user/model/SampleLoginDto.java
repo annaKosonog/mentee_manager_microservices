@@ -1,6 +1,6 @@
-package java.pl.reskilled.menteeManagerMicroservices.user.model;
+package pl.reskilled.menteeManagerMicroservices.user.model;
 
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.LoginDto;
 
 public interface SampleLoginDto {
 

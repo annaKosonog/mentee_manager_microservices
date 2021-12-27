@@ -1,4 +1,4 @@
-package java.pl.reskilled.menteeManagerMicroservices.user.controller;
+package pl.reskilled.menteeManagerMicroservices.user.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,10 +14,9 @@ import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.LoginDto;
-
-import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginDto;
-import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleLoginDto;
+import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.LoginDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -53,7 +52,7 @@ public class AuthControllerMvcLoginTest implements SampleUser, SampleLoginDto {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        final String actualResponse= login.getResponse().getContentAsString();
+        final String actualResponse = login.getResponse().getContentAsString();
         assertThat(loginInExpected.equals(actualResponse));
 
     }
