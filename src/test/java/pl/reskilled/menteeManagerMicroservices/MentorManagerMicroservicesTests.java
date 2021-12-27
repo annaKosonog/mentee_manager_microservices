@@ -1,10 +1,10 @@
-package pl.reskilled.menteeManagerMicroservices;
+package java.pl.reskilled.menteeManagerMicroservices;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MenteeManagerMicroservicesTests {
+class MentorManagerMicroservicesTests {
 
     @Test
     void contextLoads() {

@@ -1,12 +1,13 @@
-package pl.reskilled.menteeManagerMicroservices.user.service;
+package java.pl.reskilled.menteeManagerMicroservices.user.service;
 
 import org.junit.jupiter.api.Test;
-import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
-import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
+
+import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
+import java.pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;

@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.controller;
+package pl.reskilled.menteeManagerMicroservices.user.security.controller.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -14,11 +14,23 @@ public class UserMapper {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User mapRegister(SignUpDto register) {
+    public User mapRegisterToUser(SignUpDto register) {
+
         final User user = new User();
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
+        user.setAuthorities(register.getAuthorities());
         return user;
+    }
+
+    public SignUpDto mapToSignUpDto(User from) {
+
+        final SignUpDto signUpDto = new SignUpDto();
+        signUpDto.setUsername(from.getUsername());
+        signUpDto.setEmail(from.getEmail());
+        signUpDto.setPassword(from.getPassword());
+        signUpDto.setAuthorities(from.getAuthorities());
+        return signUpDto;
     }
 }

@@ -25,7 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/csrf", "/",
             "/login**",
-            "/api/**"
+            "/api/signin",
+            "/api/signup",
+            "/api/students"
     };
 
     public WebSecurityConfig(MongoDetailsServiceImpl mongoDetailsService) {
@@ -55,9 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
+                .antMatchers("/api/addMentee").hasRole("STUDENT")
                 .anyRequest().authenticated()
-                .and()
-                .headers().frameOptions().disable()
                 .and()
                 .formLogin().permitAll()
                 .defaultSuccessUrl("/home")
