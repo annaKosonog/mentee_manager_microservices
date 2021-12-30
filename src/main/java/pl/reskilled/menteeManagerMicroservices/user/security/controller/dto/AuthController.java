@@ -5,12 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.reskilled.menteeManagerMicroservices.user.exception.api.valid.MessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.LoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.SignUpDto;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.student.StudentDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserDetailsImpl;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -56,19 +52,5 @@ public class AuthController {
         }
         userService.registerNewUserAccount(signUpDto);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!", HttpStatus.CREATED));
-    }
-
-
-    @PreAuthorize("hasRole('STUDENT') or hasRole('MENTOR')")
-    @GetMapping("/students")
-    // todo nie mogę dostać się do tego endpointu kiedy jestem zalogowana
-    public ResponseEntity<List<StudentDto>> getAllStudents() {
-        return ResponseEntity.ok(userService.getAllStudents());
-    }
-
-    @PreAuthorize("hasRole('STUDENT') or hasRole('MENTOR')")
-    @PostMapping("/students/add")
-    public ResponseEntity<StudentDto> registerAddNewStudents(@Valid @RequestBody StudentDto studentDto) {
-         return ResponseEntity.ok(userService.addNewStudent(studentDto));
     }
 }

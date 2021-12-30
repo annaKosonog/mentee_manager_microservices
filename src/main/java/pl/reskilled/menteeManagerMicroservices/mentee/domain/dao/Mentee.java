@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.model.student;
+package pl.reskilled.menteeManagerMicroservices.mentee.domain.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +21,8 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Builder
 @EqualsAndHashCode
-@Document(collection = "students")
-public class Student {
+@Document(collection = "mentees")
+public class Mentee {
 
     @Id
     private String id;

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
 import javax.validation.Valid;

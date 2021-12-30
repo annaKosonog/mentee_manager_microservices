@@ -1,6 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation;
 
-import pl.reskilled.menteeManagerMicroservices.user.security.model.student.Duration;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
 
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;

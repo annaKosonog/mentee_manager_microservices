@@ -2,7 +2,7 @@ package pl.reskilled.menteeManagerMicroservices.user.security.model.objectValida
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.student.Seniority;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

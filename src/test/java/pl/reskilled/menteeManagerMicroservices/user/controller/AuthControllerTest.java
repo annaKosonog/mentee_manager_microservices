@@ -7,12 +7,10 @@ import pl.reskilled.menteeManagerMicroservices.user.model.SampleMessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleSignUp;
 import pl.reskilled.menteeManagerMicroservices.user.model.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.controller.dto.AuthController;
-import pl.reskilled.menteeManagerMicroservices.user.security.mapper.StudentMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.User;
-import pl.reskilled.menteeManagerMicroservices.user.security.repository.StudentRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 import pl.reskilled.menteeManagerMicroservices.user.security.service.UserService;
 
@@ -30,9 +28,7 @@ public class AuthControllerTest implements SampleSignUp, SampleUser, SampleMessa
         ResponseEntity<MessageResponse> expectedResponse = okMessageResponse("User registered successfully!");
         final UserRepository userRepository = mock(UserRepository.class);
         final UserMapper userMapper = mock(UserMapper.class);
-        final StudentMapper studentMapper = mock(StudentMapper.class);
-        final StudentRepository studentRepository = mock(StudentRepository.class);
-        final UserService userService = new UserService(userRepository, studentRepository, userMapper, studentMapper);
+        final UserService userService = new UserService(userRepository, userMapper);
 
 
         final SignUpDto signUpDto = allParameterSignUpDto("user", "user@contact.pl", "test1", Collections.singleton(Authority.STUDENT));

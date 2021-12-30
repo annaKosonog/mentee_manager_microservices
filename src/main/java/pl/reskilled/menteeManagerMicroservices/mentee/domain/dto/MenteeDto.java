@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.security.model.student;
+package pl.reskilled.menteeManagerMicroservices.mentee.domain.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.DurationType;
 import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.SeniorityType;
 
@@ -18,8 +20,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Builder
 @ToString
-@JsonDeserialize(builder = StudentDto.StudentDtoBuilder.class)
-public class StudentDto implements Serializable {
+@JsonDeserialize(builder = MenteeDto.MenteeDtoBuilder.class)
+
+public class MenteeDto implements Serializable {
 
     private static final long serialVersionUID = -4856846361193249489L;
 

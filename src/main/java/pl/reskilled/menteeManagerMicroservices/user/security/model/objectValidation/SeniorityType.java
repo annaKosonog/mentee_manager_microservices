@@ -1,6 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation;
 
-import pl.reskilled.menteeManagerMicroservices.user.security.model.student.Seniority;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
