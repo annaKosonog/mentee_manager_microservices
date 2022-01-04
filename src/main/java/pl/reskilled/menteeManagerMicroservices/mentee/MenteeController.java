@@ -22,15 +22,15 @@ public class MenteeController {
     private final MenteeService menteeService;
 
 
-    @PreAuthorize("hasRole('STUDENT') or hasRole('MENTOR')")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority(('MENTOR'))")
     @GetMapping("/students")
-    // todo nie mogę dostać się do tego endpointu kiedy jestem zalogowana
     public ResponseEntity<List<MenteeDto>> getAllStudents() {
         return ResponseEntity.ok(menteeService.getAllStudents());
     }
 
-    @PreAuthorize("hasRole('STUDENT') or hasRole('MENTOR')")
+
     @PostMapping("/students/add")
+    @PreAuthorize("hasAuthority('STUDENT') or hasAuthority(('MENTOR'))")
     public ResponseEntity<MenteeDto> registerAddNewStudents(@Valid @RequestBody MenteeDto menteeDto) {
         return ResponseEntity.ok(menteeService.addNewStudent(menteeDto));
     }

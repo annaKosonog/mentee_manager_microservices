@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.DurationType;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.SeniorityType;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.DurationType;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.SeniorityType;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

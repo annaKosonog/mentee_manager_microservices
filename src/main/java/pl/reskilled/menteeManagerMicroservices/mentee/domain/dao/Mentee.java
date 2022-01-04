@@ -10,8 +10,6 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.DurationType;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.objectValidation.SeniorityType;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -37,9 +35,7 @@ public class Mentee {
     @Field(name = "future_position")
     private String future_position;
     @NotBlank
-    @DurationType(anyOf = {Duration.ONE_MONTH, Duration.THREE_MONTH, Duration.SIX_MONTH})
     private Duration duration;
     @NotBlank
-    @SeniorityType(anyOf = {Seniority.Intern, Seniority.Junior, Seniority.Mid, Seniority.Senior})
     private Seniority seniority;
 }

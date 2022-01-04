@@ -2,8 +2,8 @@ package pl.reskilled.menteeManagerMicroservices.user.security.mapper;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.SignUpDto;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.registration.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 
 @Component
 public class UserMapper {
@@ -20,7 +20,7 @@ public class UserMapper {
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
-        user.setAuthorities(register.getAuthorities());
+        user.setRoles(register.getRoles());
         return user;
     }
 }
