@@ -1,6 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.exception.api.response;
 
-import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.UserExistEmailException;
+import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 
 public interface SampleUserExistsByEmail {
 

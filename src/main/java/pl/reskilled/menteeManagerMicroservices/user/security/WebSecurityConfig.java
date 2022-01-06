@@ -28,7 +28,7 @@ import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.servic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MongoDetailsServiceImpl mongoDetailsService;
-    private final AuthEntryPointJwt authEntryPoint;
+    private final AuthEntryPointJwt unauthorizedHandler;
     private final JwtUtils utils;
 
 
@@ -74,10 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("api/students").hasAnyRole("STUDENT", "MENTOR")
                 .antMatchers("api/students/add").hasAnyRole("STUDENT", "MENTOR")
+                .antMatchers("api/refreshtoken").hasAnyRole("STUDENT", "MENTOR")
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .exceptionHandling().authenticationEntryPoint(authEntryPoint)
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .headers().frameOptions().disable();
         http.httpBasic().disable();

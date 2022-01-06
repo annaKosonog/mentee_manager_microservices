@@ -15,7 +15,7 @@ public interface SampleUser {
 
     UserMapper userMapper = null;
 
-    default UserDetailsImpl getUser(String id, String email, String password, Set<Authority> roles) {
+    default UserDetailsImpl getUser(String id, String email, String username, String password, Set<Authority> roles) {
         Set<GrantedAuthority> roleSet = new HashSet<>();
         roleSet.add(new SimpleGrantedAuthority("STUDENT"));
         return new UserDetailsImpl(id, email, password, roleSet);

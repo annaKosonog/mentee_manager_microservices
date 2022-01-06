@@ -53,7 +53,7 @@ public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
                                                                      @Autowired ObjectMapper objectMapper,
                                                                      @Autowired UserRepository userRepository) throws Exception {
         assertThat(userRepository.findByEmail("email@example.pl")).isNotEmpty();
-        final String body = getUser( "1234dsa","ExistentUser", "password", Collections.singleton(Authority.STUDENT)).toString();
+        final String body = getUser( "1234dsa","ExistentUser","wacek", "password", Collections.singleton(Authority.STUDENT)).toString();
 
         final MvcResult createUser = mockMvc.perform(post("/api/signin")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +72,7 @@ public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
     public void should_return_401_unauthorized_when_username_or_password_is_not_valid(@Autowired MockMvc mockMvc,
                                                                                       @Autowired UserRepository userRepository) throws Exception {
         AssertionsForClassTypes.assertThat(userRepository.findByEmail("email@example.pl")).isEmpty();
-        String body = getUser( "1234dsa","Not@ExistentUser", "password", Collections.singleton(Authority.STUDENT)).toString();
+        String body = getUser( "1234dsa","Not@ExistentUser", "wacek", "password", Collections.singleton(Authority.STUDENT)).toString();
 
         mockMvc.perform(post("api/signin")
                 .contentType(MediaType.APPLICATION_JSON)

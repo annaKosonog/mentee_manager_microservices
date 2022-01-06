@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.jwt.JwtUtils;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.RefreshToken;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.LogOutDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.LoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.TokenRefreshRequest;
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.TokenRefreshException;
+import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.jwt.JwtUtils;
+import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.RefreshTokenService;
+import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.UserDetailsImpl;
+import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.UserService;
 import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.JwtResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.MessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.TokenRefreshResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
-import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.RefreshTokenService;
-import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.UserDetailsImpl;
-import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.UserService;
 
 import javax.validation.Valid;
 import java.util.Set;
@@ -64,12 +64,15 @@ public class AuthController {
         Set<String> roles = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toSet());
+
         LOGGER.info("                      ");
         LOGGER.info("\b You have logged in correctly");
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
         return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(),
+                userDetails.getId(),
+                userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));
 
@@ -94,7 +97,7 @@ public class AuthController {
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
-                    String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+                    String token = jwtUtils.getUserNameFromJwtToken(user.getUsername());
                     return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
@@ -104,6 +107,7 @@ public class AuthController {
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutDto logOutDto) {
         refreshTokenService.deleteByUserId(logOutDto.getUserId());
+        LOGGER.info("\b You logged out correctly");
         return ResponseEntity.ok(new MessageResponse("Log out successful!", HttpStatus.OK));
     }
 }

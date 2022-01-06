@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.UserExistEmailException;
 import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.MessageResponse;
 
 import java.util.List;
@@ -29,7 +28,6 @@ public class AuthControllerErrorHandler {
     public AuthErrorResponse userConflict(UserExistEmailException exception) {
         String message = "The given email already exists in the database: " + exception.getInfo();
         log.info("Conflict: {}", exception.getMessage());
-        log.debug("Conflict: ", exception);
         return new AuthErrorResponse(HttpStatus.CONFLICT, message);
     }
 

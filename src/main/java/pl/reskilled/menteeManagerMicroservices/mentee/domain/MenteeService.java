@@ -7,7 +7,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
-import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.UserExistEmailException;
+import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 
 import java.util.List;
 import java.util.stream.Collectors;

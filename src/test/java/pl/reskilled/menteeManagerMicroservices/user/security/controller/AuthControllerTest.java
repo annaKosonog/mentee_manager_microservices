@@ -32,8 +32,8 @@ public class AuthControllerTest implements SampleLoginDto, SampleUser, SampleJwt
     @Test
     public void should_return_correct_response_with_generated_jwt_token_and_status() {
         //GIVEN
-        final ResponseEntity<JwtResponse> expectedResponse = sampleJwtResponse("token", "jwtToken", "admin", Collections.singleton("STUDENT"));
-        final UserDetailsImpl principal = getUser("1234dsa", "admin@wp.pl", "adminpassword", Collections.singleton(STUDENT));
+        final ResponseEntity<JwtResponse> expectedResponse = sampleJwtResponse("token", "jwtToken","1234dsa","wacek", "admin@wp.pl", Collections.singleton("STUDENT"));
+        final UserDetailsImpl principal = getUser("1234dsa", "admin@wp.pl", "wacek", "adminpassword", Collections.singleton(STUDENT));
         final Authentication authentication = sampleAuthentication(principal);
 
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);

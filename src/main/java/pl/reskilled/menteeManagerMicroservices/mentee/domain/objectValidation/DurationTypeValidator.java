@@ -22,15 +22,14 @@ public class DurationTypeValidator implements ConstraintValidator<DurationType, 
 
     @Override
     public boolean isValid(Duration duration, ConstraintValidatorContext constraintValidatorContext) {
-        for (Duration d : subset) {
-            if (d.equals(duration)) {
-                LOG.info("You entered correct data: ");
-                return true;
-            }
+        if (duration.equals("ONE_MONTH") || duration.equals("THREE_MONTH") || duration.equals("SIX_MONTH")) {
+            LOG.info("You entered correct data: ");
+            return true;
         }
         LOG.error("You have to choose ONE_MONTH/THREE_MONTH/SIX_MONTH");
         return false;
     }
+
 }
 
 // todo - ciągły błąd z walidacją duration nie wchodzi do piwerwszego if-a tylko od razu rzuca błąd czy wpiszemy dobrą danę czy też źle

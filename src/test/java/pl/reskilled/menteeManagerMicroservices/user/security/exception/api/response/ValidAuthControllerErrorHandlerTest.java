@@ -1,7 +1,7 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.exception.api.response;
 
 import org.junit.jupiter.api.Test;
-import pl.reskilled.menteeManagerMicroservices.user.exception.api.response.UserExistEmailException;
+import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.AuthControllerErrorHandler;
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.AuthErrorResponse;
 

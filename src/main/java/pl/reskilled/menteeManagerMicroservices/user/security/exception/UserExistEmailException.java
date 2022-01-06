@@ -1,4 +1,4 @@
-package pl.reskilled.menteeManagerMicroservices.user.exception.api.response;
+package pl.reskilled.menteeManagerMicroservices.user.security.exception;
 
 import lombok.Getter;
 
