@@ -17,6 +17,7 @@ import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleLoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.LoginDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.JwtResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("container_test")
-public class AuthControllerMvcLoginTest implements SampleUser, SampleLoginDto {
+public class AuthControllerWithContainerTest implements SampleUser, SampleLoginDto {
 
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.2")
@@ -42,7 +43,7 @@ public class AuthControllerMvcLoginTest implements SampleUser, SampleLoginDto {
     @Test
     void should_return_generate_token_the_next_to_should_have_access_request_http_200(@Autowired MockMvc mvc,
                                                                                       @Autowired ObjectMapper objectMapper) throws Exception {
-        final LoginDto register = allParameterLoginDto("user@contact.pl", "test1");
+        final LoginDto register = userExistsWithDb();
         final String loginInExpected = objectMapper.writeValueAsString(register);
 
         final MvcResult login = mvc.perform(post("/api/signin")
@@ -52,19 +53,22 @@ public class AuthControllerMvcLoginTest implements SampleUser, SampleLoginDto {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        final String actualResponse = login.getResponse().getContentAsString();
-        assertThat(loginInExpected.equals(actualResponse));
+        final String token = login.getResponse().getContentAsString();
+
+        final JwtResponse actualResponse = objectMapper.readValue(token, JwtResponse.class);
+        assertThat(actualResponse.getEmail()).isEqualTo("soki@hortex.pl");
+        assertThat(actualResponse.getToken()).isNotBlank();
 
     }
 
     @Test
-    void should_return_request_code_http_400_when_will_not_provide_a_username(@Autowired MockMvc mockMvc,
+    void should_return_request_code_http_400_when_will_not_provide_a_email(@Autowired MockMvc mockMvc,
                                                                               @Autowired ObjectMapper objectMapper) throws Exception {
         final LoginDto user = userTestDto();
         final String signInExpected = objectMapper.writeValueAsString(user);
-        final String expectedResponse = "Username may not be blank";
+        final String expectedResponse = "Email may not be blank";
 
-        final MvcResult login = mockMvc.perform(post("/login")
+        final MvcResult login = mockMvc.perform(post("/api/signin")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(signInExpected))
                 .andDo(print())
@@ -75,6 +79,5 @@ public class AuthControllerMvcLoginTest implements SampleUser, SampleLoginDto {
 
         assertThat(actualResponse).containsIgnoringCase(expectedResponse);
         assertThat(actualResponse).isNotBlank();
-
     }
 }

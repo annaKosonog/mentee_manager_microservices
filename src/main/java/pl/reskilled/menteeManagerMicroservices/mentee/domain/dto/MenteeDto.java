@@ -11,6 +11,7 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.DurationType;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.SeniorityType;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -33,9 +34,10 @@ public class MenteeDto implements Serializable {
     private final String email;
     @NotBlank(message = "{future_position.not.blank}")
     private final String future_position;
+    @Valid
     @DurationType(anyOf = {Duration.ONE_MONTH, Duration.THREE_MONTH, Duration.SIX_MONTH})
     private final Duration duration;
-    @SeniorityType(anyOf = {Seniority.Intern, Seniority.Junior, Seniority.Mid, Seniority.Senior})
+    @SeniorityType
     private final Seniority seniority;
 
 }

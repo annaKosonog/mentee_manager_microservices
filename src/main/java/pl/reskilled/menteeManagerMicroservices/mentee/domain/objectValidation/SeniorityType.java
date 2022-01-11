@@ -1,7 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation;
 
-import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Documented;
@@ -12,14 +10,11 @@ import java.lang.annotation.Target;
 
 @Documented
 @Constraint(validatedBy = SeniorityTypeValidator.class)
-@Target({ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SeniorityType {
 
-
-    Seniority[] anyOf();
-
-    String message() default "Must be any of {anyOf}";
+    String message() default "Must be any of Intern/Junior/Mid/Senior";
 
     Class<?>[] groups() default {};
 

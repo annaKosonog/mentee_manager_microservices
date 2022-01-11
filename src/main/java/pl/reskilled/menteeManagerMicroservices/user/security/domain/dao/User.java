@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode
-@Document(collection = "user")
+@Document(collection = "users")
 public class User {
     @Id
     private String id;

@@ -13,6 +13,6 @@ public interface SampleSignUp {
     }
 
     default SignUpDto registerUser() {
-        return allParameterSignUpDto("test", "test@example.pl", "test1", Collections.singleton(Authority.STUDENT));
+        return allParameterSignUpDto("Wacek", "soki@hortex.pl", "Jan123", Collections.singleton(Authority.STUDENT));
     }
 }

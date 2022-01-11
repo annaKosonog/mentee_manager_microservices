@@ -6,29 +6,29 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleLoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleSignUp;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleUser;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority;
-import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.LoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.JwtResponse;
+import pl.reskilled.menteeManagerMicroservices.user.security.payload.response.MessageResponse;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
-import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service.UserService;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.BDDAssertions.then;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Testcontainers
 @AutoConfigureMockMvc
 @ActiveProfiles("container_test")
-public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
+public class AuthControllerIntegrationTest implements SampleSignUp, SampleUser, SampleLoginDto {
 
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:4.2")
@@ -48,36 +48,76 @@ public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
         System.setProperty("DB_PORT", String.valueOf(mongoDBContainer.getFirstMappedPort()));
     }
 
+
     @Test
-    void should_return_200_success_with_jwt_token_when_user_is_valid(@Autowired MockMvc mockMvc,
-                                                                     @Autowired ObjectMapper objectMapper,
-                                                                     @Autowired UserRepository userRepository) throws Exception {
-        assertThat(userRepository.findByEmail("email@example.pl")).isNotEmpty();
-        final String body = getUser( "1234dsa","ExistentUser","wacek", "password", Collections.singleton(Authority.STUDENT)).toString();
+    void should_return_code_http_200(@Autowired MockMvc mockMvc,
+                                     @Autowired ObjectMapper objectMapper,
+                                     @Autowired UserRepository userRepository) throws Exception {
+
+  //      assertThat(userRepository.findByEmail("soki@hortex.pl")).isNotEmpty();
+
+        final LoginDto user = allParameterLoginDto("soki@hortex.pl", "Jan123");
+        final String signInException = objectMapper.writeValueAsString(user);
 
         final MvcResult createUser = mockMvc.perform(post("/api/signin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(StandardCharsets.UTF_8.name())
-                .content(body))
-                .andDo(print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .content(signInException))
+                .andExpect(status().is2xxSuccessful())
                 .andReturn();
 
-        final JwtResponse jwtResponse = objectMapper.readValue(createUser.getResponse().getContentAsString(), JwtResponse.class);
-        assertThat(jwtResponse.getEmail().equals("email@example.pl"));
-        AssertionsForClassTypes.assertThat(jwtResponse.getToken()).isNotBlank();
+        final String contentWithHttp = createUser.getResponse().getContentAsString();
+        final JwtResponse actualResponse = objectMapper.readValue(contentWithHttp, JwtResponse.class);
+        String token = actualResponse.getToken();
+
+        mockMvc.perform(get("/api/students")
+                .header("Authorization", "Bearer " + token))
+                .andExpect(status().isOk())
+                .andReturn();
     }
 
     @Test
-    public void should_return_401_unauthorized_when_username_or_password_is_not_valid(@Autowired MockMvc mockMvc,
-                                                                                      @Autowired UserRepository userRepository) throws Exception {
-        AssertionsForClassTypes.assertThat(userRepository.findByEmail("email@example.pl")).isEmpty();
-        String body = getUser( "1234dsa","Not@ExistentUser", "wacek", "password", Collections.singleton(Authority.STUDENT)).toString();
+    public void should_return_offers_response_401_unauthorized_after_negative_authentication_with_jwt_token(@Autowired MockMvc mockMvc,
+                                                                                                            @Autowired UserRepository userRepository,
+                                                                                                            @Autowired ObjectMapper objectMapper) throws Exception {
 
-        mockMvc.perform(post("api/signin")
+        final MessageResponse expectedLoginErrorResponse = new MessageResponse(
+                "Bad Credentials",
+                HttpStatus.UNAUTHORIZED
+        );
+
+        assertThat(userRepository.findByEmail("soki@hotex.pl")).isEmpty();
+
+        final LoginDto user = allParameterLoginDto("soki@hotex.pl", "Jan123");
+        final String body = objectMapper.writeValueAsString(user);
+
+
+        MvcResult result = mockMvc.perform(post("/api/signin")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isUnauthorized())
+                .andReturn();
+
+        final String content = result.getResponse().getContentAsString();
+        final MessageResponse messageResponse = objectMapper.readValue(content, MessageResponse.class);
+
+        assertThat(messageResponse).isEqualTo(expectedLoginErrorResponse);
+
+        mockMvc.perform(get("/api/students"))
+                .andExpect(status().isUnauthorized())
+                .andReturn();
+    }
+
+
+    @Test
+    public void should_return_400_unauthorized_when_username_or_password_is_not_valid(@Autowired MockMvc mockMvc,
+                                                                                      @Autowired UserRepository userRepository) throws Exception {
+        AssertionsForClassTypes.assertThat(userRepository.findByEmail("email@example.pl")).isEmpty();
+        String body = getUser("1234dsa", "Not@ExistentUser", "wacek", "password", Collections.singleton(Authority.STUDENT)).toString();
+
+        mockMvc.perform(post("/api/signin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 
@@ -141,23 +181,6 @@ public class AuthControllerMvcRegisterTest implements SampleSignUp, SampleUser {
 
         assertThat(actualResponse).containsIgnoringCase(expectedResponse);
         assertThat(actualResponse).isNotBlank();
-    }
-
-    @Test
-    void should_add_user_in_database_when_email_is_unique(@Autowired UserService userService,
-                                                          @Autowired UserRepository userRepository) {
-        //GIVEN
-
-        final SignUpDto uniqueEmail = registerUser();
-        then(userRepository.existsByEmail("test@contact.pl")).isFalse();
-
-        //WHEN
-        final User actual = userService.registerNewUserAccount(uniqueEmail);
-
-        //THEN
-
-        assertThat(uniqueEmail.getEmail()).isEqualTo(actual.getEmail());
-        assertThat(userRepository.existsByEmail("test@contact.pl")).isTrue();
     }
 
     @Test

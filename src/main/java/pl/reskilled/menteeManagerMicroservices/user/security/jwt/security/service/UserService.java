@@ -1,9 +1,11 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
+import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 import pl.reskilled.menteeManagerMicroservices.user.security.mapper.UserMapper;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
 
@@ -16,7 +18,11 @@ public class UserService {
 
 
     public User registerNewUserAccount(SignUpDto signUpDto) {
-        final User user = userMapper.mapRegisterToUser(signUpDto);
-        return userRepository.save(user);
+        try {
+            final User user = userMapper.mapRegisterToUser(signUpDto);
+            return userRepository.save(user);
+        } catch (DuplicateKeyException e) {
+            throw new UserExistEmailException(signUpDto.getEmail());
+        }
     }
 }

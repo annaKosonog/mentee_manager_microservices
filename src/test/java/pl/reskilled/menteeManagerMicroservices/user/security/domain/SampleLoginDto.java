@@ -11,4 +11,7 @@ public interface SampleLoginDto {
     default LoginDto userTestDto(){
         return allParameterLoginDto( "test@contact.pl", "test1");
     }
+    default LoginDto userExistsWithDb(){
+        return allParameterLoginDto("soki@hortex.pl", "Jan123");
+    }
 }

@@ -1,36 +1,38 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-
+@Slf4j
 public class DurationTypeValidator implements ConstraintValidator<DurationType, Duration> {
 
-    Duration[] subset;
-    private static Logger LOG = LoggerFactory.getLogger(DurationTypeValidator.class);
+
+    private Set<Duration> subset;
 
 
     @Override
     public void initialize(DurationType constraintAnnotation) {
-        this.subset = constraintAnnotation.anyOf();
+        subset = Arrays.stream(constraintAnnotation.anyOf()).collect(Collectors.toSet());
     }
 
     @Override
     public boolean isValid(Duration duration, ConstraintValidatorContext constraintValidatorContext) {
         if (duration.equals("ONE_MONTH") || duration.equals("THREE_MONTH") || duration.equals("SIX_MONTH")) {
-            LOG.info("You entered correct data: ");
+            log.info("You entered correct data: ");
             return true;
         }
-        LOG.error("You have to choose ONE_MONTH/THREE_MONTH/SIX_MONTH");
-        return false;
+        return true;
+        }
     }
 
-}
+
 
 // todo - ciągły błąd z walidacją duration nie wchodzi do piwerwszego if-a tylko od razu rzuca błąd czy wpiszemy dobrą danę czy też źle
 

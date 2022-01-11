@@ -2,10 +2,11 @@ package pl.reskilled.menteeManagerMicroservices.user.security.payload.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.util.Set;
 
-
+@ToString
 @Getter
 @RequiredArgsConstructor
 public class JwtResponse {

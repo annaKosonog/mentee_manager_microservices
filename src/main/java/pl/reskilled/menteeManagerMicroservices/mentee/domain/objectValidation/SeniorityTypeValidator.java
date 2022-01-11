@@ -1,7 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 
 import javax.validation.ConstraintValidator;
@@ -11,24 +9,16 @@ import java.util.List;
 
 public class SeniorityTypeValidator implements ConstraintValidator<SeniorityType, Seniority> {
 
-    private static Logger LOG = LoggerFactory.getLogger(SeniorityTypeValidator.class);
-    Seniority[] subset;
+    List<String> subset = Arrays.asList("Intern", "Junior", "Mid", "Senior");
 
 
     @Override
     public void initialize(SeniorityType constraintAnnotation) {
-        this.subset = constraintAnnotation.anyOf();
     }
 
     @Override
     public boolean isValid(Seniority seniority, ConstraintValidatorContext constraintValidatorContext) {
-        List<Seniority> listSeniority = Arrays.asList(Seniority.Intern, Seniority.Junior, Seniority.Mid, Seniority.Senior);
-            if (listSeniority.contains(seniority)) {
-                LOG.info("You entered correct data: ");
-                return true;
-            }
-        LOG.error("You have to choose Intern/Junior/Mid/Senior");
-        return false;
+        return subset.contains(seniority);
     }
 }
 // todo - ciągły błąd z walidacją seniority
