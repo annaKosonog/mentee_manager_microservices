@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class AuthController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final JwtUtils jwtUtils;

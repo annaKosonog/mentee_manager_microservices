@@ -1,17 +1,17 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.domain.objectValidation;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Set;
 
+@Slf4j
 public class RoleUserValidator implements ConstraintValidator<UserRoleValid, Set<Authority>> {
 
     Authority [] subset;
-    private static Logger log = LoggerFactory.getLogger(RoleUserValidator.class);
+
 
     @Override
     public void initialize(UserRoleValid constraintAnnotation) {

@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public enum Seniority {
 
-    Intern,
-    Junior,
-    Mid,
-    Senior
+    INTERN,
+    JUNIOR,
+    MID,
+    SENIOR
 }

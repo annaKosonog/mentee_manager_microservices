@@ -10,11 +10,11 @@ import java.lang.annotation.Target;
 
 @Documented
 @Constraint(validatedBy = SeniorityTypeValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.CONSTRUCTOR})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SeniorityType {
 
-    String message() default "Must be any of Intern/Junior/Mid/Senior";
+    String message() default "Must be any of INTERN/JUNIOR/MID/SENIOR";
 
     Class<?>[] groups() default {};
 

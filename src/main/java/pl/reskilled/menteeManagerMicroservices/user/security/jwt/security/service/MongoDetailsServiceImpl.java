@@ -13,15 +13,13 @@ import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepo
 @RequiredArgsConstructor
 public class MongoDetailsServiceImpl implements UserDetailsService {
 
-    private static final String USER_NOT_FOUND = "User not found: ";
     private final UserRepository userRepository;
-
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND + email));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 
         return UserDetailsImpl.getUser(user);
     }

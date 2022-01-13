@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -13,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.DurationType;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.SeniorityType;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -22,6 +22,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Builder
 @EqualsAndHashCode
+@ToString
 @Document(collection = "mentees")
 public class Mentee {
 
@@ -37,8 +38,7 @@ public class Mentee {
     @NotBlank
     @Field(name = "future_position")
     private String future_position;
-    @Valid
-    @DurationType(anyOf = {Duration.ONE_MONTH, Duration.THREE_MONTH, Duration.SIX_MONTH})
+    @DurationType
     private Duration duration;
     @SeniorityType
     private Seniority seniority;

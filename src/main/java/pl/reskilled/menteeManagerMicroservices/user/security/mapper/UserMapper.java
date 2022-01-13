@@ -1,18 +1,16 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 
 @Component
+@RequiredArgsConstructor
 public class UserMapper {
 
-    private PasswordEncoder passwordEncoder;
-
-    public UserMapper(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public User mapRegisterToUser(SignUpDto register) {
 

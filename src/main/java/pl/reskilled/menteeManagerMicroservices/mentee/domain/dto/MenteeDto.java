@@ -1,6 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -11,7 +10,6 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.DurationType;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation.SeniorityType;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -21,7 +19,6 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Builder
 @ToString
-@JsonDeserialize(builder = MenteeDto.MenteeDtoBuilder.class)
 
 public class MenteeDto implements Serializable {
 
@@ -34,8 +31,7 @@ public class MenteeDto implements Serializable {
     private final String email;
     @NotBlank(message = "{future_position.not.blank}")
     private final String future_position;
-    @Valid
-    @DurationType(anyOf = {Duration.ONE_MONTH, Duration.THREE_MONTH, Duration.SIX_MONTH})
+    @DurationType
     private final Duration duration;
     @SeniorityType
     private final Seniority seniority;

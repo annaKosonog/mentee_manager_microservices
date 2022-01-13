@@ -1,7 +1,5 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain.objectValidation;
 
-import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
-
 import javax.validation.Constraint;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -20,9 +18,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface DurationType {
 
-    Duration[] anyOf() default {Duration.ONE_MONTH};
 
-    String message() default  "Must be any of {anyOf}";
+
+    String message() default  "Must be any of ONE_MONTH/THREE_MONTH, SIX_MONTH";
 
 
     Class<?>[] groups() default {};
