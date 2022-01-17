@@ -75,7 +75,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("api/students").hasAnyRole("STUDENT", "MENTOR")
                 .antMatchers("api/students/add").hasAnyRole("STUDENT", "MENTOR")
                 .antMatchers("api/refreshtoken").hasAnyRole("STUDENT", "MENTOR")
-                .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

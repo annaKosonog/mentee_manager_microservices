@@ -23,14 +23,18 @@ public class MenteeDto implements Serializable {
 
     @NotBlank(message = "{username.not.blank}")
     private final String username;
+
     @Email
     @NotBlank(message = "{email.not.blank}")
     private final String email;
+
     @NotBlank(message = "{future_position.not.blank}")
     private final String future_position;
+
     @NotBlank(message = "{duration.not.blank}")
     @DurationType
     private final String duration;
+
     @NotBlank(message = "{seniority.not.blank}")
     @SeniorityType
     private final String seniority;

@@ -19,9 +19,11 @@ public class SignUpDto {
 
     @NotBlank(message = "{username.not.blank}")
     private String username;
+
     @Email
     @NotBlank(message = "{email.not.blank}")
     private String email;
+
     @NotBlank(message = "{password.not.blank}")
     private String password;
 

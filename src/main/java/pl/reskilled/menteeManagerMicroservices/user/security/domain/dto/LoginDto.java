@@ -12,8 +12,10 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @EqualsAndHashCode
 public class LoginDto {
+
     @NotBlank(message = "{email.not.blank}")
     private String email;
+
     @NotBlank(message = "{password.not.blank}")
     private String password;
 }

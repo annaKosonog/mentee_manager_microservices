@@ -12,11 +12,17 @@ import java.util.Set;
 public class JwtResponse {
 
     private final String token;
+
     private String type = "Bearer";
+
     private final  String refreshToken;
+
     private final String id;
+
     private final  String username;
+
     private final  String email;
+
     private final  Set<String> roles;
 
 }

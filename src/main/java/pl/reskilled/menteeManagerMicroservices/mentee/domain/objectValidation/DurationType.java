@@ -18,8 +18,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface DurationType {
 
-
-
     String message() default  "Must be any of ONE_MONTH/THREE_MONTH, SIX_MONTH";
 
 
