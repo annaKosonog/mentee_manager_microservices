@@ -28,6 +28,7 @@ public class Mentee {
 
     @Id
     private String id;
+
     @NotBlank
     private String username;
 
@@ -38,8 +39,12 @@ public class Mentee {
     @NotBlank
     @Field(name = "future_position")
     private String future_position;
+
+    @NotBlank
     @DurationType
     private Duration duration;
+
+    @NotBlank
     @SeniorityType
     private Seniority seniority;
 }

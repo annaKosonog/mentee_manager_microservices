@@ -4,18 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority;
-import pl.reskilled.menteeManagerMicroservices.user.security.domain.objectValidation.UserRoleValid;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.objectValidation.UserRole;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @EqualsAndHashCode
 public class SignUpDto {
 
@@ -27,6 +25,7 @@ public class SignUpDto {
     @NotBlank(message = "{password.not.blank}")
     private String password;
 
-    @UserRoleValid(anyOf = {Authority.STUDENT, Authority.MENTOR})
-    private Set<Authority> roles;
+    @NotNull(message = "{roles.not.null}")
+    @UserRole
+    private Set<String> roles;
 }

@@ -1,7 +1,9 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain;
 
 import org.springframework.stereotype.Component;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 
 
@@ -13,8 +15,8 @@ public class MenteeMapper {
                 .username(from.getUsername())
                 .email(from.getEmail())
                 .future_position(from.getFuture_position())
-                .duration(from.getDuration())
-                .seniority(from.getSeniority())
+                .duration(from.getDuration().toString())
+                .seniority(from.getSeniority().toString())
                 .build();
     }
 
@@ -23,8 +25,8 @@ public class MenteeMapper {
                 .username(reverse.getUsername())
                 .email(reverse.getEmail())
                 .future_position(reverse.getFuture_position())
-                .duration(reverse.getDuration())
-                .seniority(reverse.getSeniority())
+                .duration(Duration.valueOf(reverse.getDuration()))
+                .seniority(Seniority.valueOf(reverse.getSeniority()))
                 .build();
     }
 }

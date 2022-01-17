@@ -8,10 +8,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import pl.reskilled.menteeManagerMicroservices.user.security.domain.objectValidation.UserRoleValid;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.objectValidation.UserRole;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +36,8 @@ public class User {
     @NotBlank
     private String password;
 
-    @UserRoleValid(anyOf = {Authority.STUDENT, Authority.MENTOR})
+    @NotNull
+    @UserRole
     private Set<Authority> roles = new HashSet<>();
 
 

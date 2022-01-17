@@ -124,7 +124,7 @@ public class AuthControllerIntegrationTest implements SampleSignUp, SampleUser, 
     @Test
     void should_return_request_code_http_400_when_will_not_provide_a_username(@Autowired MockMvc mockMvc,
                                                                               @Autowired ObjectMapper objectMapper) throws Exception {
-        final SignUpDto user = allParameterSignUpDto("", "test@contact.pl", "admin", Collections.singleton(Authority.MENTOR));
+        final SignUpDto user = allParameterSignUpDto("", "test@contact.pl", "admin", Collections.singleton("MENTOR"));
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "Username may not be blank";
 
@@ -145,7 +145,7 @@ public class AuthControllerIntegrationTest implements SampleSignUp, SampleUser, 
     @Test
     void should_return_request_code_http_400_when_will_not_provide_an_email(@Autowired MockMvc mockMvc,
                                                                             @Autowired ObjectMapper objectMapper) throws Exception {
-        final SignUpDto user = allParameterSignUpDto("Wacek", "", "admin", Collections.singleton(Authority.MENTOR));
+        final SignUpDto user = allParameterSignUpDto("Wacek", "", "admin", Collections.singleton("MENTOR"));
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "Email may not be blank";
 
@@ -166,7 +166,7 @@ public class AuthControllerIntegrationTest implements SampleSignUp, SampleUser, 
     @Test
     void should_return_request_code_http_400_when_will_provide_wrong_format_an_email(@Autowired MockMvc mockMvc,
                                                                                      @Autowired ObjectMapper objectMapper) throws Exception {
-        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "admin", Collections.singleton(Authority.MENTOR));
+        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "admin", Collections.singleton("MENTOR"));
         final String signInExpected = objectMapper.writeValueAsString(user);
         final String expectedResponse = "must be a well-formed email address";
 
@@ -185,7 +185,7 @@ public class AuthControllerIntegrationTest implements SampleSignUp, SampleUser, 
 
     @Test
     void should_return_http_code_400_when_try_to_add_user_without_password(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper, @Autowired UserRepository userRepository) throws Exception {
-        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "", Collections.singleton(Authority.MENTOR));
+        final SignUpDto user = allParameterSignUpDto("Wacek", "test", "", Collections.singleton("MENTOR"));
         final String signInExpected = objectMapper.writeValueAsString(user);
 
         final String expectedResponse = "Password may not be blank";
