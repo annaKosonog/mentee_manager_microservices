@@ -14,7 +14,7 @@ public class SeniorityTypeValidator implements ConstraintValidator<SeniorityType
 
     @Override
     public boolean isValid(String seniority, ConstraintValidatorContext constraintValidatorContext) {
-        if (seniority.contains("INTERN") || seniority.contains("JUNIOR") || seniority.contains("MID") || seniority.contains("SENIOR")) {
+        if (("INTERN").equals(seniority) || ("JUNIOR").equals(seniority) || ("MID").equals(seniority) || ("SENIOR").equals(seniority)) {
             log.info("You entered correct data: ");
             return true;
         }

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SeniorityType {
 
-    String message() default "Must be any of INTERN/JUNIOR/MID/SENIOR";
+    String message() default "Seniority: must be any of INTERN/JUNIOR/MID/SENIOR";
 
     Class<?>[] groups() default {};
 

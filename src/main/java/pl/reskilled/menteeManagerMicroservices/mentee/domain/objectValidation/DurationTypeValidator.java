@@ -16,7 +16,7 @@ public class DurationTypeValidator implements ConstraintValidator<DurationType, 
 
     @Override
     public boolean isValid(String duration, ConstraintValidatorContext constraintValidatorContext) {
-        if (duration.contains("ONE_MONTH") || duration.contains("THREE_MONTH") || duration.contains("SIX_MONTH")) {
+        if (("ONE_MONTH").equals(duration) || ("THREE_MONTH").equals(duration) || ("SIX_MONTH").equals(duration)) {
             log.info("You entered correct data: ");
             return true;
         }

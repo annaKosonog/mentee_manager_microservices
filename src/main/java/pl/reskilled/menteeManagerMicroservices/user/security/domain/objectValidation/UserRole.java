@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UserRole {
 
-    String message() default "Must be any of STUDENT or MENTOR";
+    String message() default "Role: must be any of STUDENT or MENTOR";
 
     Class<?>[] groups() default {};
 
