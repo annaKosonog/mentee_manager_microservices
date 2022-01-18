@@ -1,36 +1,31 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.SignUpDto;
-import pl.reskilled.menteeManagerMicroservices.user.security.model.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class UserMapper {
 
-    private PasswordEncoder passwordEncoder;
-
-    public UserMapper(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public User mapRegisterToUser(SignUpDto register) {
+
+        Set<Authority> roles = new HashSet<>();
+        roles.add(Authority.valueOf(register.getRoles().toString()));
 
         final User user = new User();
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
-        user.setAuthorities(register.getAuthorities());
+        user.setRoles(roles);
         return user;
-    }
-
-    public SignUpDto mapToSignUpDto(User from) {
-
-        final SignUpDto signUpDto = new SignUpDto();
-        signUpDto.setUsername(from.getUsername());
-        signUpDto.setEmail(from.getEmail());
-        signUpDto.setPassword(from.getPassword());
-        signUpDto.setAuthorities(from.getAuthorities());
-        return signUpDto;
     }
 }

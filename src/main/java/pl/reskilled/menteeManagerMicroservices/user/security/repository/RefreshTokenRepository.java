@@ -2,14 +2,14 @@ package pl.reskilled.menteeManagerMicroservices.user.security.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.RefreshToken;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
+public interface RefreshTokenRepository extends MongoRepository<RefreshToken, String> {
+    Optional<RefreshToken> findByToken(String token);
 
-    Optional<User> findByEmail(String email);
-
-    boolean existsByEmail(String email);
+    int deleteByUser(User user);
 }
