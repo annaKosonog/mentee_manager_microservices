@@ -16,7 +16,7 @@ public class ProjectControllerHandler {
     @ResponseBody
     public ProjectErrorResponse developerConflict(NameExistsException exception){
         String message = "The name is exists to the db: " + exception.getInfo();
-        log.info("Conflict: {}" + exception.getMessage());
+        log.info("Conflict: {" + exception.getMessage() + "}");
         return new ProjectErrorResponse(HttpStatus.CONFLICT, message);
     }
 }
