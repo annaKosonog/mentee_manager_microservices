@@ -41,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/csrf", "/",
             "/login**",
             "/api/signin",
-            "/api/signup"
+            "/api/signup",
+            "/api/projects/add"
     };
 
     @Bean
