@@ -13,17 +13,16 @@ import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameEx
 public class ProjectService {
 
     private static Logger LOGGER = LoggerFactory.getLogger(ProjectService.class);
-    private final ProjectMapper projectMapper;
     private final ProjectRepository projectRepository;
 
 
     public ProjectDto addNewProject(ProjectDto projectDto) {
         LOGGER.info("Beginning of new project writing to database:  ");
-        final Project project = projectMapper.mapToProject(projectDto);
+        final Project project = ProjectMapper.mapToProject(projectDto);
         try {
             projectRepository.save(project);
             LOGGER.info("The project has been saved to the database:  ");
-            return projectDto;
+            return ProjectMapper.mapToProjectDto(project);
         } catch (DuplicateKeyException e) {
             LOGGER.error("Error: Name project is already ");
             throw new NameExistsException(projectDto.getName());

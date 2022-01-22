@@ -31,10 +31,10 @@ public class Project {
     @Id
     private String id;
 
+    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     @NotBlank
     private String name;
 
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     @DeveloperType
     private Set<String> developers = new HashSet<>();
 
