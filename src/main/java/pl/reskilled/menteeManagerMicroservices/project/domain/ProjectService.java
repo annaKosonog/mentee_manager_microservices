@@ -22,6 +22,7 @@ public class ProjectService {
         try {
             projectRepository.save(project);
             LOGGER.info("The project has been saved to the database:  ");
+            LOGGER.info("----------------------------------------------");
             return ProjectMapper.mapToProjectDto(project);
         } catch (DuplicateKeyException e) {
             LOGGER.error("Error: Name project is already ");

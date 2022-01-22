@@ -26,7 +26,7 @@ public class ProjectServiceUnitTest implements SampleProject {
         final ProjectDto beforeSaveToDb = addNewProject();
         final Project projectJustBeforeSavingWithoutId = firstProjectWithoutId();
 
-        final Project savedProject = firstProject();
+        final Project savedProject = secondAddProject();
 
         when(projectRepository.save(projectJustBeforeSavingWithoutId)).thenReturn(savedProject);
 

@@ -11,7 +11,7 @@ public class ProjectMapper {
                 .name(project.getName())
                 .developers(project.getDevelopers())
                 .techStack(project.getTechStack())
-                .developers(project.getDevelopers())
+                .description(project.getDescription())
                 .build();
     }
 
@@ -20,7 +20,7 @@ public class ProjectMapper {
                 .name(projectDto.getName())
                 .developers(projectDto.getDevelopers())
                 .techStack(projectDto.getTechStack())
-                .developers(projectDto.getDevelopers())
+                .description(projectDto.getDescription())
                 .build();
     }
 }

@@ -11,7 +11,7 @@ public class TechStackTypeValidator implements ConstraintValidator<TechStackType
 
     @Override
     public boolean isValid(Set<String> techStack, ConstraintValidatorContext constraintValidatorContext) {
-        return techStack.isEmpty();
+        return !techStack.isEmpty();
     }
 }
 

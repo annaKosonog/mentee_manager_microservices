@@ -13,6 +13,6 @@ public class DeveloperTypeValidator implements ConstraintValidator<DeveloperType
 
     @Override
     public boolean isValid(Set<String> developer, ConstraintValidatorContext constraintValidatorContext) {
-        return developer.isEmpty();
+        return !developer.isEmpty();
     }
 }

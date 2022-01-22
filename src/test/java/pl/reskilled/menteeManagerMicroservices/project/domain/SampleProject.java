@@ -21,8 +21,8 @@ public interface SampleProject extends SampleProjectDto {
     }
 
 
-    default Project firstProject() {
-        return allParametersForProject("61e98e0b825ad234e3725cca", "Secret keys", developerSet(), techStackSet(), "User write application");
+    default Project secondAddProject() {
+        return allParametersForProject("61e98e0b825ad234e3725cca", "Secret keys", developerSet(), techStackSet(), "User second");
     }
 
 

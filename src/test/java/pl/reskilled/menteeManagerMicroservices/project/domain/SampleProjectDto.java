@@ -22,6 +22,10 @@ public interface SampleProjectDto {
     return developerSet;
     }
 
+    default ProjectDto secondNewProjectDto(){
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
+    }
+
     default Set<String> techStackSet() {
         Set<String> techStackSet = new HashSet<>();
         techStackSet.add("Java");
