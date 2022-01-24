@@ -70,7 +70,8 @@ public class ProjectControllerPostTestMvc implements SampleProjectDto {
                 "name.not.blank",
                 "description.not.blank");
     }
-    private String wrongProjectPostJson(){
+
+    private String wrongProjectPostJson() {
         return "{\"developers\":[\"test\", \"test2\"]," +
                 "\"techStack\" : [\"test\", \"test2\"]}";
     }

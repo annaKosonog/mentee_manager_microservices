@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameExistsException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class ProjectService {
@@ -28,5 +31,12 @@ public class ProjectService {
             LOGGER.error("Error: Name project is already ");
             throw new NameExistsException(projectDto.getName());
         }
+    }
+
+    public List<ProjectDto> findAllProject() {
+        return projectRepository.findAll()
+                .stream()
+                .map(ProjectMapper::mapToProjectDto)
+                .collect(Collectors.toList());
     }
 }

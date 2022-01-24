@@ -15,14 +15,14 @@ public interface SampleProjectDto {
         return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
     }
 
-    default Set<String> developerSet(){
+    default Set<String> developerSet() {
         Set<String> developerSet = new HashSet<>();
         developerSet.add("Jan Kowalski");
         developerSet.add("Nikodem Smieszek");
-    return developerSet;
+        return developerSet;
     }
 
-    default ProjectDto secondNewProjectDto(){
+    default ProjectDto secondNewProjectDto() {
         return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
     }
 
@@ -32,5 +32,17 @@ public interface SampleProjectDto {
         techStackSet.add("Spring boot");
         techStackSet.add("MongoDb");
         return techStackSet;
+    }
+
+    default ProjectDto secretKeyDtoMapper() {
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User second");
+    }
+
+    default ProjectDto pacmanDtoMapper() {
+        return allParameterProjectDto("Pacman Game",
+                developerSet(),
+                techStackSet(),
+                "RPG game"
+        );
     }
 }
