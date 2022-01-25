@@ -4,10 +4,9 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import pl.reskilled.menteeManagerMicroservices.project.domain.objectValidation.DeveloperType;
-import pl.reskilled.menteeManagerMicroservices.project.domain.objectValidation.TechStackType;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -22,11 +21,9 @@ public class ProjectDto implements Serializable {
     @NotBlank(message = "{name.not.blank}")
     private final String name;
 
-    @DeveloperType
-    private final Set<String> developers;
+    private final Set<@NotEmpty(message = "{developers.not.empty}") String> developers;
 
-    @TechStackType
-    private final Set<String> techStack;
+    private final Set<@NotEmpty(message = "{techStack.not.empty}") String> techStack;
 
     @NotBlank(message = "{description.not.blank}")
     private final String description;

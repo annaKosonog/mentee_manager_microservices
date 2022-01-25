@@ -11,10 +11,9 @@ import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import pl.reskilled.menteeManagerMicroservices.project.domain.objectValidation.DeveloperType;
-import pl.reskilled.menteeManagerMicroservices.project.domain.objectValidation.TechStackType;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,12 +34,10 @@ public class Project {
     @NotBlank
     private String name;
 
-    @DeveloperType
-    private Set<String> developers = new HashSet<>();
+    private Set<@NotEmpty String> developers = new HashSet<>();
 
     @Field(name = "tech_stack")
-    @TechStackType
-    private Set<String> techStack = new HashSet<>();
+    private Set<@NotEmpty String> techStack = new HashSet<>();
 
     @NotBlank
     private String description;

@@ -6,6 +6,7 @@ import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
 import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProject;
+import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 
 import java.util.Arrays;
@@ -19,8 +20,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.developerSet;
 
-public class ProjectServiceUnitTest implements SampleProject {
+public class ProjectServiceUnitTest implements SampleProjectDto, SampleProject {
 
     ProjectRepository projectRepository = mock(ProjectRepository.class);
 

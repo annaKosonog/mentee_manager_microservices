@@ -1,20 +1,11 @@
 package pl.reskilled.menteeManagerMicroservices.project.domain;
 
-import java.util.Set;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.allParametersForProject;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.allParametersWithoutId;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.developerSet;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.techStackSet;
 
-public interface SampleProject extends SampleProjectDto {
-    default Project allParametersForProject(String id, String name, Set<String> developers, Set<String> techStack, String description) {
-        return new Project(id, name, developers, techStack, description);
-    }
-
-    default Project allParametersWithoutId(String name, Set<String> developers, Set<String> techStack, String description) {
-        return Project.builder()
-                .name(name)
-                .developers(developers)
-                .techStack(techStack)
-                .description(description)
-                .build();
-    }
+public interface SampleProject  {
 
     default Project firstProjectWithoutId() {
         return allParametersWithoutId("Secret keys", developerSet(), techStackSet(), "User write application");

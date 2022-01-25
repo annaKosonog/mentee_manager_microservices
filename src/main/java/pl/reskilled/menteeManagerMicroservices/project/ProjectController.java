@@ -21,12 +21,14 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/projects/add")
-    public ResponseEntity<ProjectDto> addNewProjects(@Valid @RequestBody ProjectDto projectDto){
-        return ResponseEntity.ok(projectService.addNewProject(projectDto));
+    public ResponseEntity<ProjectDto> addNewProjects(@Valid @RequestBody ProjectDto projectDto) {
+        final ProjectDto newProject = projectService.addNewProject(projectDto);
+        return ResponseEntity.ok(newProject);
     }
 
     @GetMapping("/projects")
-    public  ResponseEntity<List<ProjectDto>> getAllProject(){
-        return ResponseEntity.ok(projectService.findAllProject());
+    public ResponseEntity<List<ProjectDto>> getAllProject() {
+        final List<ProjectDto> allProject = projectService.findAllProject();
+        return ResponseEntity.ok(allProject);
     }
 }

@@ -22,6 +22,8 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.allParameterProjectDto;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.allParametersForProject;
 
 @SpringBootTest(classes = ProjectServiceContainerIntegrationTest.TestConfig.class)
 @ActiveProfiles("container_test")

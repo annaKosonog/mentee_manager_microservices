@@ -40,8 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/csrf", "/",
             "/login**",
-            "/api/signin",
-            "/api/signup",
+            "/api/signin**",
             "/api/projects/add",
             "/api/projects"
     };
