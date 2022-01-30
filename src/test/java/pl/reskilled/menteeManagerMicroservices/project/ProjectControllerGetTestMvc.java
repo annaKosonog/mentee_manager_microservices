@@ -1,5 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.project;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -7,8 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 
 import java.util.Arrays;
@@ -18,10 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDtoMapper;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKeyDtoMapper;
 
 @WebMvcTest
 @ContextConfiguration(classes = MockMvcConfig.class)
-public class ProjectControllerGetTestMvc implements SampleProjectDto {
+public class ProjectControllerGetTestMvc {
 
     @Test
     void should_return_a_response_200_when_find_all_project(@Autowired MockMvc mockMvc,

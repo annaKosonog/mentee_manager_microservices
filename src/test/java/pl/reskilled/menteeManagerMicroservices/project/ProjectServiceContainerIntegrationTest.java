@@ -12,8 +12,6 @@ import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
 import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProject;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameExistsException;
 
@@ -28,7 +26,7 @@ import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil
 @SpringBootTest(classes = ProjectServiceContainerIntegrationTest.TestConfig.class)
 @ActiveProfiles("container_test")
 @Testcontainers
-public class ProjectServiceContainerIntegrationTest implements SampleProject, SampleProjectDto {
+public class ProjectServiceContainerIntegrationTest{
 
     private static final String MONGO_VERSION = "4.4.4";
 

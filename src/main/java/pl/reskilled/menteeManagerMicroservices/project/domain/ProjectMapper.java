@@ -6,7 +6,7 @@ import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 @UtilityClass
 public class ProjectMapper {
 
-    public static ProjectDto mapToProjectDto(Project project){
+    public static ProjectDto mapToProjectDto(Project project) {
         return ProjectDto.builder()
                 .name(project.getName())
                 .developers(project.getDevelopers())
@@ -15,12 +15,13 @@ public class ProjectMapper {
                 .build();
     }
 
-    public static Project mapToProject(ProjectDto projectDto){
-        return Project.builder()
-                .name(projectDto.getName())
-                .developers(projectDto.getDevelopers())
-                .techStack(projectDto.getTechStack())
-                .description(projectDto.getDescription())
-                .build();
+    public static Project mapToProject(ProjectDto projectDto) {
+
+        final Project project = new Project();
+        project.setName(projectDto.getName());
+        project.setDevelopers(projectDto.getDevelopers());
+        project.setTechStack(projectDto.getTechStack());
+        project.setDescription(projectDto.getDescription());
+        return project;
     }
 }

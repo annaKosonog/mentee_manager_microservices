@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProject;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 
 import java.util.Arrays;
@@ -20,9 +18,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.addNewProject;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.developerSet;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.firstProjectWithoutId;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacman;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDtoMapper;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKey;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKeyDtoMapper;
 
-public class ProjectServiceUnitTest implements SampleProjectDto, SampleProject {
+public class ProjectServiceUnitTest{
 
     ProjectRepository projectRepository = mock(ProjectRepository.class);
 

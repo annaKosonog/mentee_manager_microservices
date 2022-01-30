@@ -16,7 +16,6 @@ import pl.reskilled.menteeManagerMicroservices.config.MessageSourceConfig;
 import pl.reskilled.menteeManagerMicroservices.exceptions.ApiValidationErrorHandler;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
-import pl.reskilled.menteeManagerMicroservices.project.domain.SampleProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.exception.response.ProjectControllerHandler;
 import pl.reskilled.menteeManagerMicroservices.user.security.WebSecurityConfig;
@@ -30,11 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secondNewProjectDto;
 
 @WebMvcTest
 @ContextConfiguration(classes = MockMvcConfig.class)
 @AutoConfigureMockMvc(addFilters = false)
-public class ProjectControllerPostTestMvc implements SampleProjectDto {
+public class ProjectControllerPostTestMvc {
 
     @Test
     void should_return_a_response_code_200_when_add_new_project(@Autowired MockMvc mockMvc,
@@ -78,7 +78,7 @@ public class ProjectControllerPostTestMvc implements SampleProjectDto {
 }
 
 @Import({MessageSourceConfig.class, WebSecurityConfig.class, JwtTestConfig.class})
-class MockMvcConfig implements SampleProjectDto {
+class MockMvcConfig {
 
     @Bean
     ProjectService projectService() {

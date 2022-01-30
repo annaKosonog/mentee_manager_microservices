@@ -4,9 +4,12 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import pl.reskilled.menteeManagerMicroservices.project.domain.objectValidation.DeveloperType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -14,6 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Builder
 @RequiredArgsConstructor
+@ToString
 public class ProjectDto implements Serializable {
 
     private static final long serialVersionUID = -4856846361193249489L;
@@ -21,9 +25,12 @@ public class ProjectDto implements Serializable {
     @NotBlank(message = "{name.not.blank}")
     private final String name;
 
-    private final Set<@NotEmpty(message = "{developers.not.empty}") String> developers;
+    @DeveloperType
+    private final Set<String> developers;
 
-    private final Set<@NotEmpty(message = "{techStack.not.empty}") String> techStack;
+    @NotEmpty(message = "{techStack.not.empty}")
+    @Size(min = 1, max = 10, message = "{techStack.size}")
+    private final Set<String> techStack;
 
     @NotBlank(message = "{description.not.blank}")
     private final String description;

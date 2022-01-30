@@ -12,12 +12,7 @@ public class ProjectUtil {
     }
 
     public static Project allParametersWithoutId(String name, Set<String> developers, Set<String> techStack, String description) {
-        return Project.builder()
-                .name(name)
-                .developers(developers)
-                .techStack(techStack)
-                .description(description)
-                .build();
+        return new Project(null, name, developers, techStack, description);
     }
 
     public static ProjectDto allParameterProjectDto(String name, Set<String> developers, Set<String> techStack, String description) {
@@ -34,8 +29,48 @@ public class ProjectUtil {
     public static Set<String> techStackSet() {
         Set<String> techStackSet = new HashSet<>();
         techStackSet.add("Java");
-        techStackSet.add("Spring boot");
+        techStackSet.add("Spring_boot");
         techStackSet.add("MongoDb");
         return techStackSet;
     }
+
+    public static Project firstProjectWithoutId() {
+        return allParametersWithoutId("Secret keys", developerSet(), techStackSet(), "User write application");
+    }
+
+
+    public static Project secretKey() {
+        return allParametersForProject("61e98e0b825ad234e3725cca", "Secret keys", developerSet(), techStackSet(), "User second");
+    }
+
+    public static Project pacman() {
+        return allParametersForProject("24ee32b6-6b15-11eb-9439-0242ac130002",
+                "Pacman Game",
+                developerSet(),
+                techStackSet(),
+                "RPG game"
+        );
+    }
+
+    public static ProjectDto addNewProject() {
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
+    }
+
+    public static ProjectDto secondNewProjectDto() {
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
+    }
+
+
+    public static ProjectDto secretKeyDtoMapper() {
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User second");
+    }
+
+    public static ProjectDto pacmanDtoMapper() {
+        return allParameterProjectDto("Pacman Game",
+                developerSet(),
+                techStackSet(),
+                "RPG game"
+        );
+    }
 }
+
