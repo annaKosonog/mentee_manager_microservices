@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
 public @interface DeveloperType{
-    String message() default "Developer data incorrectly entered";
+    String message() default "Developer may not be null or developer data incorrectly entered";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

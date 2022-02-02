@@ -29,7 +29,7 @@ public class ProjectDto implements Serializable {
     private final Set<String> developers;
 
     @NotEmpty(message = "{techStack.not.empty}")
-    @Size(min = 1, max = 10, message = "{techStack.size}")
+    @Size(min = 2, max = 10, message = "{techStack.size}")
     private final Set<String> techStack;
 
     @NotBlank(message = "{description.not.blank}")

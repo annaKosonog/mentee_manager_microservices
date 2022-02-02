@@ -17,7 +17,7 @@ public class ProjectMapper {
 
     public static Project mapToProject(ProjectDto projectDto) {
 
-        final Project project = new Project();
+        Project project = new Project();
         project.setName(projectDto.getName());
         project.setDevelopers(projectDto.getDevelopers());
         project.setTechStack(projectDto.getTechStack());
