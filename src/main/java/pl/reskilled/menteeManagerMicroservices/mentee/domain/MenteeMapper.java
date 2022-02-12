@@ -10,7 +10,7 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 @Component
 public class MenteeMapper {
 
-    public MenteeDto mapToMenteeDto(Mentee from) {
+    public static MenteeDto mapToMenteeDto(Mentee from) {
         return MenteeDto.builder()
                 .username(from.getUsername())
                 .email(from.getEmail())
@@ -20,7 +20,7 @@ public class MenteeMapper {
                 .build();
     }
 
-    public Mentee mapToMentee(MenteeDto reverse) {
+    public static Mentee mapToMentee(MenteeDto reverse) {
         return Mentee.builder()
                 .username(reverse.getUsername())
                 .email(reverse.getEmail())

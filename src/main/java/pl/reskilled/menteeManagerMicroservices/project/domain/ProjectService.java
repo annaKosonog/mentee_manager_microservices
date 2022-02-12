@@ -6,6 +6,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameExistsException;
+import pl.reskilled.menteeManagerMicroservices.teams.exception.ProjectNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,5 +38,18 @@ public class ProjectService {
                 .stream()
                 .map(ProjectMapper::mapToProjectDto)
                 .collect(Collectors.toList());
+    }
+
+    public ProjectDto findProjectByName(String name) {
+        log.info("----------------------------------");
+        log.info("SEARCH FOR THE PROJECT BY NAME: ");
+        try {
+            final Project searchProjectByName = projectRepository.findByName(name);
+            log.info("PROJECT FOUND WITH GIVEN NAME: " + searchProjectByName);
+            return ProjectMapper.mapToProjectDto(searchProjectByName);
+        } catch (ProjectNotFoundException e) {
+            log.error("PROJECT: PROJECT NOT FOUND EXCEPTION " + e.getMessage());
+            throw new ProjectNotFoundException(e.getName());
+        }
     }
 }

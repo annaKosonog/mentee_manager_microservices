@@ -22,7 +22,7 @@ import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.developerSet;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.firstProjectWithoutId;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacman;
-import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDtoMapper;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDto;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKey;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKeyDtoMapper;
 
@@ -58,7 +58,7 @@ public class ProjectServiceUnitTest{
         //WHEN
         final List<ProjectDto> allProject = projectService.findAllProject();
         //THEN
-        assertThat(allProject).isEqualTo(Arrays.asList(secretKeyDtoMapper(), pacmanDtoMapper()));
+        assertThat(allProject).isEqualTo(Arrays.asList(secretKeyDtoMapper(), pacmanDto()));
     }
 
     @Test

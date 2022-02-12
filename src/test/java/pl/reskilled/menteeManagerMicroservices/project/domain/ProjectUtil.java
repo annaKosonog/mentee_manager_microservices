@@ -65,12 +65,20 @@ public class ProjectUtil {
         return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User second");
     }
 
-    public static ProjectDto pacmanDtoMapper() {
-        return allParameterProjectDto("Pacman Game",
+    public static ProjectDto pacmanDto() {
+        return allParameterProjectDto("Pacman_Game",
                 developerSet(),
                 techStackSet(),
-                "RPG game"
+                "RPG_GAME"
         );
+    }
+    public static Project pacmanDao(){
+    return allParametersForProject(
+            "123dsa", "Pacman_Game",
+            developerSet(),
+            techStackSet(),
+            "RPG_GAME"
+    );
     }
 }
 

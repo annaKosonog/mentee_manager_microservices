@@ -8,4 +8,6 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 public interface MenteeRepository extends MongoRepository<Mentee, String> {
 
     boolean existsByEmail(String email);
+
+    Mentee findByEmail(String email);
 }
