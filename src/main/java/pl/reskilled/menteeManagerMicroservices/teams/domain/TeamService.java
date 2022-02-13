@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeService;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,10 +33,10 @@ public class TeamService {
         return TeamMapper.mapToTeamDto(team);
     }
 
-    public List<TeamDto> findAllTeam() {
+    public List<TeamReadDto> findAllTeam() {
         return teamRepository.findAll()
                 .stream()
-                .map(TeamMapper::mapToTeamDto)
+                .map(TeamMapper::mapToTeamReadDto)
                 .collect(Collectors.toList());
     }
 }

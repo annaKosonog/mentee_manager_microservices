@@ -20,7 +20,7 @@ public class MenteeService {
 
     private final MenteeRepository menteeRepository;
 
-    public List<MenteeDto> getAllStudents() {
+    public List<MenteeDto> findAllStudents() {
         return menteeRepository.findAll()
                 .stream()
                 .map(MenteeMapper::mapToMenteeDto)
@@ -45,10 +45,10 @@ public class MenteeService {
         log.info("SEARCH FOR THE MENTEE BY EMAIL:");
         try {
             final Mentee searchMenteeByEmail = menteeRepository.findByEmail(email);
-            log.info("MENTEE FOUND WITH GIVEN EMAIL: " + searchMenteeByEmail);
+            log.info("MENTEE FOUND WITH GIVEN EMAIL_MENTEE: " + searchMenteeByEmail);
             return MenteeMapper.mapToMenteeDto(searchMenteeByEmail );
         } catch (ProjectNotFoundException e) {
-            log.error("ERROR: MENTEE WITH GIVEN EMAIL DOES NOT EXIST IN THE DATABASE: " + e.getMessage());
+            log.error("ERROR: MENTEE WITH GIVEN EMAIL_MENTEE DOES NOT EXIST IN THE DATABASE: " + e.getMessage());
             throw new MenteeNotFoundException(e.getName());
         }
     }

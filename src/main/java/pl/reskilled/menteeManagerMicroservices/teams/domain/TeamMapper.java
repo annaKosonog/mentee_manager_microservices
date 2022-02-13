@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeMapper;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectMapper;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
 @UtilityClass
 public class TeamMapper {
@@ -16,9 +17,18 @@ public class TeamMapper {
                 .build();
     }
 
+
+    public static TeamReadDto mapToTeamReadDto(Team team) {
+        return TeamReadDto.builder()
+                .name(team.getName())
+                .project(ProjectMapper.mapToProjectDto(team.getProject()))
+                .members(MenteeMapper.mapToMenteeDto(team.getMentee()))
+                .build();
+    }
+
     public static Team reverseToTeam(TeamDto teamDto) {
 
-        Team team = new Team();
+        final Team team = new Team();
         team.setName(teamDto.getName());
         team.setProject(ProjectMapper.mapToProject(teamDto.getProject()));
         team.setMentee(MenteeMapper.mapToMentee(teamDto.getMembers()));

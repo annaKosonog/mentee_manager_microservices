@@ -1,5 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.teams.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,12 +21,12 @@ public class TeamDto implements Serializable {
     private static final long serialVersionUID = -4856846361193249489L;
 
     @NotBlank(message = "{name.not.blank}")
-    private  String name;
+    private String name;
 
+    @JsonIgnore
+    private ProjectDto project;
 
-    private   ProjectDto project;
-
-
+    @JsonIgnore
     private MenteeDto members;
 
 }

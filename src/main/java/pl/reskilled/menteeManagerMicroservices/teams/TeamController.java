@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.TeamService;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,15 +24,16 @@ public class TeamController {
 
 
     @PostMapping("/teams/add")
-    ResponseEntity<TeamDto> addNewTeam(@Valid @RequestBody TeamDto teamDto,
+    ResponseEntity<TeamDto> createNewTeam(@Valid @RequestBody TeamDto teamDto,
                                        @RequestParam(name = "name_project") String name,
                                        @RequestParam(name = "email_mentee") String email) {
-        return ResponseEntity.ok(teamService.createNewTeam(teamDto, name, email));
+        final TeamDto newTeam = teamService.createNewTeam(teamDto, name, email);
+        return ResponseEntity.ok(newTeam);
     }
 
     @GetMapping("/teams")
-    ResponseEntity<List<TeamDto>> getAllTeam() {
-        final List<TeamDto> allTeam = teamService.findAllTeam();
+    ResponseEntity<List<TeamReadDto>> getAllTeam() {
+        final List<TeamReadDto> allTeam = teamService.findAllTeam();
         return ResponseEntity.ok(allTeam);
     }
 }

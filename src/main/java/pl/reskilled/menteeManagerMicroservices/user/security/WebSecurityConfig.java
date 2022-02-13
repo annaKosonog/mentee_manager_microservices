@@ -44,7 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/projects/add",
             "/api/projects",
             "/api/teams/add",
-            "/api/teams"
+            "/api/teams",
+            "api/teams/all/add"
     };
 
     @Bean

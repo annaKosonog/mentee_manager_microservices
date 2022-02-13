@@ -45,10 +45,10 @@ public class ProjectService {
         log.info("SEARCH FOR THE PROJECT BY NAME: ");
         try {
             final Project searchProjectByName = projectRepository.findByName(name);
-            log.info("PROJECT FOUND WITH GIVEN NAME: " + searchProjectByName);
+            log.info("PROJECT FOUND WITH GIVEN PROJECT_NAME: " + searchProjectByName);
             return ProjectMapper.mapToProjectDto(searchProjectByName);
         } catch (ProjectNotFoundException e) {
-            log.error("PROJECT: PROJECT NOT FOUND EXCEPTION " + e.getMessage());
+            log.error("PROJECT: PROJECT_NAME NOT FOUND EXCEPTION " + e.getMessage());
             throw new ProjectNotFoundException(e.getName());
         }
     }
