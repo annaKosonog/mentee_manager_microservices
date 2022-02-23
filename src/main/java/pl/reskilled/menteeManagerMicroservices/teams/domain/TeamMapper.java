@@ -12,8 +12,9 @@ public class TeamMapper {
     public static TeamDto mapToTeamDto(Team team) {
         return TeamDto.builder()
                 .name(team.getName())
+                .tech_stack(team.getTech_stack())
                 .project(ProjectMapper.mapToProjectDto(team.getProject()))
-                .members(MenteeMapper.mapToMenteeDto(team.getMentee()))
+                .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
@@ -21,8 +22,9 @@ public class TeamMapper {
     public static TeamReadDto mapToTeamReadDto(Team team) {
         return TeamReadDto.builder()
                 .name(team.getName())
-                .project(ProjectMapper.mapToProjectDto(team.getProject()))
-                .members(MenteeMapper.mapToMenteeDto(team.getMentee()))
+                .tech_stack(team.getTech_stack())
+                .projects(ProjectMapper.mapToProjectDto(team.getProject()))
+                .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
@@ -30,8 +32,9 @@ public class TeamMapper {
 
         final Team team = new Team();
         team.setName(teamDto.getName());
+        team.setTech_stack(teamDto.getTech_stack());
         team.setProject(ProjectMapper.mapToProject(teamDto.getProject()));
-        team.setMentee(MenteeMapper.mapToMentee(teamDto.getMembers()));
+        team.setMentees(MenteeMapper.mapToMentee(teamDto.getMembers()));
         return team;
     }
 }

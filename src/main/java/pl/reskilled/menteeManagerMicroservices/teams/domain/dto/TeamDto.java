@@ -23,6 +23,9 @@ public class TeamDto implements Serializable {
     @NotBlank(message = "{name.not.blank}")
     private String name;
 
+    @NotBlank(message = "{tech_stack.not.blank}")
+    private String tech_stack;
+
     @JsonIgnore
     private ProjectDto project;
 

@@ -25,9 +25,12 @@ public class Team {
     @NotBlank
     private String name;
 
+    @NotBlank
+    private String tech_stack;
+
     @JsonIgnore
     private Project project;
 
     @JsonIgnore
-    private Mentee mentee;
+    private Mentee mentees;
 }
