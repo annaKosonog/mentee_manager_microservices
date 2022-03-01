@@ -21,19 +21,15 @@ public class TeamService {
 
 
     public TeamDto createNewTeam(TeamDto teamDto, String name, String email) {
-        log.info("----------------------------");
-        log.info("START ADDING TEAM TO DB: ");
         teamDto.setProject(projectService.findProjectByName(name));
         teamDto.setMembers(menteeService.findMenteeByEmail(email));
-        log.info("BEFORE SAVE TEAM TO DB:");
-        final Team team = TeamMapper.reverseToTeam(teamDto);
+        final Team team = TeamMapper.mapToTeam(teamDto);
         teamRepository.save(team);
-        log.info("-------------------------------------------------");
         log.info("THE TASK COMPLETED SUCCESSFULLY: ");
         return TeamMapper.mapToTeamDto(team);
     }
 
-    public List<TeamReadDto> findAllTeam() {
+    public List<TeamReadDto> findAllTeams() {
         return teamRepository.findAll()
                 .stream()
                 .map(TeamMapper::mapToTeamReadDto)

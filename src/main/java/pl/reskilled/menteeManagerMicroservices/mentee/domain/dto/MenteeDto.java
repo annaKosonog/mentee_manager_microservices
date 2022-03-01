@@ -29,7 +29,7 @@ public class MenteeDto implements Serializable {
     private final String email;
 
     @NotBlank(message = "{future_position.not.blank}")
-    private final String future_position;
+    private final String futurePosition;
 
     @NotBlank(message = "{duration.not.blank}")
     @DurationType

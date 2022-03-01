@@ -6,11 +6,11 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
-import pl.reskilled.menteeManagerMicroservices.teams.exception.MenteeNotFoundException;
-import pl.reskilled.menteeManagerMicroservices.teams.exception.ProjectNotFoundException;
+import pl.reskilled.menteeManagerMicroservices.teams.exception.MenteeEmailNotFoundException;
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,15 +41,9 @@ public class MenteeService {
     }
 
     public MenteeDto findMenteeByEmail(String email) {
-        log.info("-----------------------------------");
-        log.info("SEARCH FOR THE MENTEE BY EMAIL:");
-        try {
-            final Mentee searchMenteeByEmail = menteeRepository.findByEmail(email);
-            log.info("MENTEE FOUND WITH GIVEN EMAIL_MENTEE: " + searchMenteeByEmail);
-            return MenteeMapper.mapToMenteeDto(searchMenteeByEmail );
-        } catch (ProjectNotFoundException e) {
-            log.error("ERROR: MENTEE WITH GIVEN EMAIL_MENTEE DOES NOT EXIST IN THE DATABASE: " + e.getMessage());
-            throw new MenteeNotFoundException(e.getName());
-        }
+        final Optional<Mentee> searchMenteeByEmail = menteeRepository.findByEmail(email);
+        searchMenteeByEmail.orElseThrow(() -> new MenteeEmailNotFoundException(email));
+        log.error("ERROR: MENTEE WITH GIVEN EMAIL_MENTEE DOES NOT EXIST IN THE DATABASE: " + email);
+        return MenteeMapper.mapToMenteeDto(searchMenteeByEmail.get());
     }
 }

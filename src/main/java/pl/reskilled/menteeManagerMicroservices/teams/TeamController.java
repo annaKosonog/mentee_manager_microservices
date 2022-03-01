@@ -25,15 +25,15 @@ public class TeamController {
 
     @PostMapping("/teams/add")
     ResponseEntity<TeamDto> createNewTeam(@Valid @RequestBody TeamDto teamDto,
-                                       @RequestParam(name = "name_project") String name,
-                                       @RequestParam(name = "email_mentee") String email) {
+                                          @RequestParam(name = "name_project") String name,
+                                          @RequestParam(name = "email_mentee") String email) {
         final TeamDto newTeam = teamService.createNewTeam(teamDto, name, email);
         return ResponseEntity.ok(newTeam);
     }
 
     @GetMapping("/teams")
     ResponseEntity<List<TeamReadDto>> getAllTeam() {
-        final List<TeamReadDto> allTeam = teamService.findAllTeam();
+        final List<TeamReadDto> allTeam = teamService.findAllTeams();
         return ResponseEntity.ok(allTeam);
     }
 }

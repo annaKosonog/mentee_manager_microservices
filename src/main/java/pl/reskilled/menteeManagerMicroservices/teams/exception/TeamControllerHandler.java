@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class TeamControllerHandler {
 
 
-    @ExceptionHandler(ProjectNotFoundException.class)
+    @ExceptionHandler(ProjectNameNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public TeamErrorResponse projectNotFound(ProjectNotFoundException exception){
-        final String message = String.format("Project with name %s not found" + exception.getName());
-        log.info(message);
+    public TeamErrorResponse projectNotFound(ProjectNameNotFoundException exception) {
+        final String message = "Project with name not found:   " + exception.getName();
+        log.warn(message);
         return new TeamErrorResponse(HttpStatus.NOT_FOUND, message);
     }
 
-    @ExceptionHandler(MenteeNotFoundException.class)
+    @ExceptionHandler(MenteeEmailNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    public TeamErrorResponse menteeNotFound(MenteeNotFoundException exception){
-        final String message = String.format("Mentee with name %s not found" + exception.getName());
-        log.info(message);
+    public TeamErrorResponse menteeNotFound(MenteeEmailNotFoundException exception) {
+        final String message = "Mentee with email not found: " + exception.getName();
+        log.warn(message);
         return new TeamErrorResponse(HttpStatus.NOT_FOUND, message);
     }
 }

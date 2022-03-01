@@ -15,13 +15,11 @@ public class MenteeControllerHandler {
     @ExceptionHandler(NameExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public MenteeErrorResponse developerConflict(NameExistsException exception){
+    public MenteeErrorResponse developerConflict(NameExistsException exception) {
         String message = "The name is exists to the db: " + exception.getInfo();
         log.info("Conflict: {" + exception.getMessage() + "}");
         return new MenteeErrorResponse(HttpStatus.CONFLICT, message);
     }
-
-
 
 
 }

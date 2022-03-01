@@ -9,30 +9,30 @@ import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 @UtilityClass
 public class TeamMapper {
 
-    public static TeamDto mapToTeamDto(Team team) {
+    public TeamDto mapToTeamDto(Team team) {
         return TeamDto.builder()
                 .name(team.getName())
-                .tech_stack(team.getTech_stack())
+                .techStack(team.getTechStack())
                 .project(ProjectMapper.mapToProjectDto(team.getProject()))
                 .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
 
-    public static TeamReadDto mapToTeamReadDto(Team team) {
+    public TeamReadDto mapToTeamReadDto(Team team) {
         return TeamReadDto.builder()
                 .name(team.getName())
-                .tech_stack(team.getTech_stack())
+                .techStack(team.getTechStack())
                 .projects(ProjectMapper.mapToProjectDto(team.getProject()))
                 .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
-    public static Team reverseToTeam(TeamDto teamDto) {
+    public Team mapToTeam(TeamDto teamDto) {
 
         final Team team = new Team();
         team.setName(teamDto.getName());
-        team.setTech_stack(teamDto.getTech_stack());
+        team.setTechStack(teamDto.getTechStack());
         team.setProject(ProjectMapper.mapToProject(teamDto.getProject()));
         team.setMentees(MenteeMapper.mapToMentee(teamDto.getMembers()));
         return team;

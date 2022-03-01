@@ -14,13 +14,11 @@ public class ProjectControllerHandler {
     @ExceptionHandler(NameExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
-    public ProjectErrorResponse developerConflict(NameExistsException exception){
+    public ProjectErrorResponse developerConflict(NameExistsException exception) {
         String message = "The name is exists to the db: " + exception.getInfo();
         log.info("Conflict: {" + exception.getMessage() + "}");
         return new ProjectErrorResponse(HttpStatus.CONFLICT, message);
     }
-
-
 
 
 }

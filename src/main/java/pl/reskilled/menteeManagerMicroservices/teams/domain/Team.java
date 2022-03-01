@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
 
@@ -26,7 +27,8 @@ public class Team {
     private String name;
 
     @NotBlank
-    private String tech_stack;
+    @Field(name = "tech_stack")
+    private String techStack;
 
     @JsonIgnore
     private Project project;

@@ -16,7 +16,7 @@ public class TeamReadDto {
     private final String name;
 
     @NotBlank(message = "{tech_stack.not.blank}")
-    private final String tech_stack;
+    private final String techStack;
 
 
     private final ProjectDto projects;

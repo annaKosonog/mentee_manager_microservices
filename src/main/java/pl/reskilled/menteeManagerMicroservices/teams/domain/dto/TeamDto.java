@@ -24,12 +24,11 @@ public class TeamDto implements Serializable {
     private String name;
 
     @NotBlank(message = "{tech_stack.not.blank}")
-    private String tech_stack;
+    private String techStack;
 
     @JsonIgnore
     private ProjectDto project;
 
     @JsonIgnore
     private MenteeDto members;
-
 }
