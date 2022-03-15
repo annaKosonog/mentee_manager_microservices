@@ -1,20 +1,25 @@
 package pl.reskilled.menteeManagerMicroservices.teams.domain;
 
-import lombok.experimental.UtilityClass;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeMapper;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectMapper;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
-@UtilityClass
+@Component
+@RequiredArgsConstructor
 public class TeamMapper {
+
+    private final ProjectMapper projectMapper;
+    private final MenteeMapper menteeMapper;
 
     public TeamDto mapToTeamDto(Team team) {
         return TeamDto.builder()
                 .name(team.getName())
                 .techStack(team.getTechStack())
-                .project(ProjectMapper.mapToProjectDto(team.getProject()))
-                .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
+                .project(projectMapper.mapToProjectDto(team.getProject()))
+                .members(menteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
@@ -23,8 +28,8 @@ public class TeamMapper {
         return TeamReadDto.builder()
                 .name(team.getName())
                 .techStack(team.getTechStack())
-                .projects(ProjectMapper.mapToProjectDto(team.getProject()))
-                .members(MenteeMapper.mapToMenteeDto(team.getMentees()))
+                .projects(projectMapper.mapToProjectDto(team.getProject()))
+                .members(menteeMapper.mapToMenteeDto(team.getMentees()))
                 .build();
     }
 
@@ -33,8 +38,8 @@ public class TeamMapper {
         final Team team = new Team();
         team.setName(teamDto.getName());
         team.setTechStack(teamDto.getTechStack());
-        team.setProject(ProjectMapper.mapToProject(teamDto.getProject()));
-        team.setMentees(MenteeMapper.mapToMentee(teamDto.getMembers()));
+        team.setProject(projectMapper.mapToProject(teamDto.getProject()));
+        team.setMentees(menteeMapper.mapToMentee(teamDto.getMembers()));
         return team;
     }
 }

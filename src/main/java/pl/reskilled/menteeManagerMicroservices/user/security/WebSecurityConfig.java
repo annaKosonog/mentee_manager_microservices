@@ -27,11 +27,6 @@ import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.servic
 @RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MongoDetailsServiceImpl mongoDetailsService;
-    private final AuthEntryPointJwt unauthorizedHandler;
-    private final JwtUtils utils;
-
-
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
             "/v2/api-docs",
@@ -40,13 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/csrf", "/",
             "/login**",
+            "/api/signup",
             "/api/signin**",
             "/api/projects/add",
             "/api/projects",
             "/api/teams/add",
-            "/api/teams",
-            "api/teams/all/add"
+            "/api/teams"
     };
+    private final MongoDetailsServiceImpl mongoDetailsService;
+    private final AuthEntryPointJwt unauthorizedHandler;
+    private final JwtUtils utils;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
