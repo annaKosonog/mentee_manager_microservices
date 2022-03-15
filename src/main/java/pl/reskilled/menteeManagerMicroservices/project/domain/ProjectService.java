@@ -18,16 +18,17 @@ import java.util.stream.Collectors;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ProjectMapper projectMapper;
 
 
     public ProjectDto addNewProject(ProjectDto projectDto) {
         log.info("Beginning of new project writing to database:  ");
-        final Project project = ProjectMapper.mapToProject(projectDto);
+        final Project project = projectMapper.mapToProject(projectDto);
         try {
             projectRepository.save(project);
             log.info("The project has been saved to the database:  ");
             log.info("----------------------------------------------");
-            return ProjectMapper.mapToProjectDto(project);
+            return projectMapper.mapToProjectDto(project);
         } catch (DuplicateKeyException e) {
             log.error("Error: Name project is already ");
             throw new NameExistsException(projectDto.getName());
@@ -37,7 +38,7 @@ public class ProjectService {
     public List<ProjectDto> findAllProject() {
         return projectRepository.findAll()
                 .stream()
-                .map(ProjectMapper::mapToProjectDto)
+                .map(projectMapper::mapToProjectDto)
                 .collect(Collectors.toList());
     }
 
@@ -46,8 +47,7 @@ public class ProjectService {
         final Optional<Project> searchProjectByName = projectRepository.findByName(name);
         log.info("Project found with given project name: " + searchProjectByName);
         searchProjectByName.orElseThrow(() -> new ProjectNameNotFoundException(name));
-        log.error("Project: Project name not found exception " + name);
-        return ProjectMapper.mapToProjectDto(searchProjectByName.get());
+        return searchProjectByName.map(projectMapper::mapToProjectDto).get();
     }
 }
 

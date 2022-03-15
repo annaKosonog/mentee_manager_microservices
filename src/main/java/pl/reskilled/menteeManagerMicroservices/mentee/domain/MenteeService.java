@@ -19,17 +19,18 @@ import java.util.stream.Collectors;
 public class MenteeService {
 
     private final MenteeRepository menteeRepository;
+    private final MenteeMapper menteeMapper;
 
     public List<MenteeDto> findAllStudents() {
         return menteeRepository.findAll()
                 .stream()
-                .map(MenteeMapper::mapToMenteeDto)
+                .map(menteeMapper::mapToMenteeDto)
                 .collect(Collectors.toList());
     }
 
     public MenteeDto addNewStudent(MenteeDto menteeDto) {
         log.info("Beginning of new student writing to database:  ");
-        final Mentee mentee = MenteeMapper.mapToMentee(menteeDto);
+        final Mentee mentee = menteeMapper.mapToMentee(menteeDto);
         try {
             menteeRepository.save(mentee);
             log.info("The student has been registered in the database");
@@ -43,7 +44,7 @@ public class MenteeService {
     public MenteeDto findMenteeByEmail(String email) {
         final Optional<Mentee> searchMenteeByEmail = menteeRepository.findByEmail(email);
         searchMenteeByEmail.orElseThrow(() -> new MenteeEmailNotFoundException(email));
-        log.error("ERROR: MENTEE WITH GIVEN EMAIL_MENTEE DOES NOT EXIST IN THE DATABASE: " + email);
-        return MenteeMapper.mapToMenteeDto(searchMenteeByEmail.get());
+        return searchMenteeByEmail.map(menteeMapper::mapToMenteeDto).get();
+
     }
 }

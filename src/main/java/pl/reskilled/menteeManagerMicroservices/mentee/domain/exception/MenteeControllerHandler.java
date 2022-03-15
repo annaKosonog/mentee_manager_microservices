@@ -20,6 +20,4 @@ public class MenteeControllerHandler {
         log.info("Conflict: {" + exception.getMessage() + "}");
         return new MenteeErrorResponse(HttpStatus.CONFLICT, message);
     }
-
-
 }

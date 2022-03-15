@@ -5,6 +5,7 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
 import static pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeUtil.userAdamDto;
 import static pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeUtil.userPawelDao;
@@ -25,6 +26,16 @@ public class TeamUtils {
 
     public static TeamDto allParametersTeamDto(String name, String techStack,ProjectDto projectDto, MenteeDto menteeDto) {
         return new TeamDto(name,techStack, projectDto, menteeDto);
+    }
+
+    public static TeamReadDto allParametersTeamReadDto(String name, String techStack,ProjectDto projectDto, MenteeDto menteeDto) {
+        return new TeamReadDto(name, techStack, projectDto, menteeDto);
+    }
+    public static TeamReadDto masterTeamReadDto(){
+       return allParametersTeamReadDto("master", "Java",pacmanDto(), userPawelDto());
+    }
+    public static TeamReadDto vipTeamReadDto(){
+        return allParametersTeamReadDto("VIP","Java", secretKeyDtoMapper(), userAdamDto());
     }
 
     public static TeamDto masterDtoNull() {

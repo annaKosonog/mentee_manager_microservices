@@ -1,12 +1,12 @@
 package pl.reskilled.menteeManagerMicroservices.mentee.domain;
 
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Duration;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 
-@UtilityClass
+@Component
 public class MenteeMapper {
 
     public MenteeDto mapToMenteeDto(Mentee from) {

@@ -14,11 +14,15 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import pl.reskilled.menteeManagerMicroservices.config.MessageSourceConfig;
 import pl.reskilled.menteeManagerMicroservices.exceptions.ApiValidationErrorHandler;
+import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeMapper;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeService;
+import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectMapper;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.TeamMapper;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.TeamRepository;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.TeamService;
 import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.WebSecurityConfig;
 import pl.reskilled.menteeManagerMicroservices.user.security.jwt.security.jwt.JwtTestConfig;
 
@@ -32,6 +36,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.reskilled.menteeManagerMicroservices.teams.domain.TeamUtils.masterDto;
+import static pl.reskilled.menteeManagerMicroservices.teams.domain.TeamUtils.masterTeamReadDto;
+import static pl.reskilled.menteeManagerMicroservices.teams.domain.TeamUtils.vipTeamReadDto;
 
 @WebMvcTest
 @ContextConfiguration(classes = MockMvcConfig.class)
@@ -96,11 +102,19 @@ class MockMvcConfig {
         TeamRepository teamRepository = mock(TeamRepository.class);
         MenteeService menteeService = mock(MenteeService.class);
         ProjectService projectService = mock(ProjectService.class);
+        ProjectMapper projectMapper = new ProjectMapper();
+        MenteeMapper menteeMapper = new MenteeMapper();
+        TeamMapper teamMapper = new TeamMapper(projectMapper, menteeMapper);
 
-        return new TeamService(teamRepository, menteeService, projectService) {
+        return new TeamService(teamRepository, menteeService, projectService, teamMapper ) {
             @Override
             public TeamDto createNewTeam(TeamDto teamDto, String name, String email) {
                 return masterDto();
+            }
+
+            @Override
+            public List<TeamReadDto> findAllTeams() {
+                return Arrays.asList(masterTeamReadDto(), vipTeamReadDto());
             }
         };
     }

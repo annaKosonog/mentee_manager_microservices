@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import pl.reskilled.menteeManagerMicroservices.config.MessageSourceConfig;
 import pl.reskilled.menteeManagerMicroservices.exceptions.ApiValidationErrorHandler;
+import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectMapper;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
@@ -83,7 +84,8 @@ class MockMvcConfig {
     @Bean
     ProjectService projectService() {
         ProjectRepository projectRepository = mock(ProjectRepository.class);
-        return new ProjectService(projectRepository) {
+        ProjectMapper projectMapper = mock(ProjectMapper.class);
+        return new ProjectService(projectRepository, projectMapper) {
             @Override
             public ProjectDto addNewProject(ProjectDto projectDto) {
                 return secondNewProjectDto();

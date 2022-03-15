@@ -38,6 +38,10 @@ public class ProjectUtil {
         return allParametersWithoutId("Secret keys", developerSet(), techStackSet(), "User write application");
     }
 
+    public static ProjectDto addNewProject() {
+        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
+    }
+
 
     public static Project secretKey() {
         return allParametersForProject("61e98e0b825ad234e3725cca", "Secret keys", developerSet(), techStackSet(), "User second");
@@ -45,16 +49,14 @@ public class ProjectUtil {
 
     public static Project pacman() {
         return allParametersForProject("24ee32b6-6b15-11eb-9439-0242ac130002",
-                "Pacman Game",
+                "Pacman_Game",
                 developerSet(),
                 techStackSet(),
-                "RPG game"
+                "RPG_GAME"
         );
     }
 
-    public static ProjectDto addNewProject() {
-        return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");
-    }
+
 
     public static ProjectDto secondNewProjectDto() {
         return allParameterProjectDto("Secret keys", developerSet(), techStackSet(), "User write application");

@@ -9,7 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MenteeRepository extends MongoRepository<Mentee, String> {
 
-    boolean existsByEmail(String email);
-
     Optional<Mentee> findByEmail(String email);
 }

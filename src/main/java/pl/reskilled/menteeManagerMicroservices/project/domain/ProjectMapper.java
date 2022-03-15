@@ -1,9 +1,9 @@
 package pl.reskilled.menteeManagerMicroservices.project.domain;
 
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 
-@UtilityClass
+@Component
 public class ProjectMapper {
 
     public ProjectDto mapToProjectDto(Project project) {
