@@ -10,7 +10,6 @@ import pl.reskilled.menteeManagerMicroservices.teams.exception.MenteeEmailNotFou
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,9 +41,8 @@ public class MenteeService {
     }
 
     public MenteeDto findMenteeByEmail(String email) {
-        final Optional<Mentee> searchMenteeByEmail = menteeRepository.findByEmail(email);
-        searchMenteeByEmail.orElseThrow(() -> new MenteeEmailNotFoundException(email));
-        return searchMenteeByEmail.map(menteeMapper::mapToMenteeDto).get();
-
+        return menteeRepository.findByEmail(email)
+                .map(menteeMapper::mapToMenteeDto)
+                .orElseThrow(() -> new MenteeEmailNotFoundException(email));
     }
 }

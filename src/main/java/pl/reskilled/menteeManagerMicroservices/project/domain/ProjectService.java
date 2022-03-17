@@ -9,7 +9,6 @@ import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameEx
 import pl.reskilled.menteeManagerMicroservices.teams.exception.ProjectNameNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -44,10 +43,9 @@ public class ProjectService {
 
     public ProjectDto findProjectByName(String name) {
         log.info("Search for the project by name: ");
-        final Optional<Project> searchProjectByName = projectRepository.findByName(name);
-        log.info("Project found with given project name: " + searchProjectByName);
-        searchProjectByName.orElseThrow(() -> new ProjectNameNotFoundException(name));
-        return searchProjectByName.map(projectMapper::mapToProjectDto).get();
+        return projectRepository.findByName(name)
+                .map(projectMapper::mapToProjectDto)
+                .orElseThrow(() -> new ProjectNameNotFoundException(name));
     }
 }
 

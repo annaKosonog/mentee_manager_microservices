@@ -10,7 +10,6 @@ import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDt
 import java.util.HashSet;
 import java.util.Set;
 
-import static pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority.fetchValue;
 
 @Component
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class UserMapper {
     public User mapRegisterToUser(SignUpDto register) {
 
         Set<Authority> roles = new HashSet<>();
-        roles.add(fetchValue());
+        roles.add(Authority.fetchValue());
 
         final User user = new User();
         user.setUsername(register.getUsername());
