@@ -42,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/login**",
             "/api/signin**",
             "/api/projects/add",
-            "/api/projects"
+            "/api/projects",
+            "/api/csv/project"
     };
 
     @Bean
