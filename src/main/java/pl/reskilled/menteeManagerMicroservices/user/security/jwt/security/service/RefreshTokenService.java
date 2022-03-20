@@ -17,11 +17,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RefreshTokenService {
 
-    @Value("${app.bezkoder.app.jwtRefreshExpirationMs}")
-    private Long refreshTokenDurationMs;
-
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
+    @Value("${app.bezkoder.app.jwtRefreshExpirationMs}")
+    private Long refreshTokenDurationMs;
 
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);

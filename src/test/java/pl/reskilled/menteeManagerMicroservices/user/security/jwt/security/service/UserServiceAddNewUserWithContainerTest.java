@@ -11,6 +11,7 @@ import pl.reskilled.menteeManagerMicroservices.MenteeManagerMicroservices;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleLoginDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleSignUp;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.SampleUser;
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 import pl.reskilled.menteeManagerMicroservices.user.security.exception.UserExistEmailException;
 import pl.reskilled.menteeManagerMicroservices.user.security.repository.UserRepository;
@@ -39,7 +40,11 @@ public class UserServiceAddNewUserWithContainerTest implements SampleUser, Sampl
         //GIVEN
         final SignUpDto userToWriteDb = registerUser();
         then(userRepository.existsByEmail("soki@hortex.pl")).isFalse();
-        userService.registerNewUserAccount(userToWriteDb);
+        //WHEN
+        final User user = userService.registerNewUserAccount(userToWriteDb);
+        //THEN
+        assertThat(user.getEmail()).isEqualTo(userToWriteDb.getEmail());
+        assertThat("STUDENT").isEqualTo(userToWriteDb.getRoles());
     }
 
     @Test

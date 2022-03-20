@@ -13,8 +13,10 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(value = RetentionPolicy.RUNTIME)
 @Documented
-public @interface DeveloperType{
+public @interface DeveloperType {
     String message() default "Developer may not be null or developer data incorrectly entered";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

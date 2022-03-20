@@ -3,6 +3,7 @@ package pl.reskilled.menteeManagerMicroservices.project;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import pl.reskilled.menteeManagerMicroservices.project.domain.Project;
+import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectMapper;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectRepository;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
@@ -22,15 +23,16 @@ import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.developerSet;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.firstProjectWithoutId;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacman;
-import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDtoMapper;
+import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.pacmanDto;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKey;
 import static pl.reskilled.menteeManagerMicroservices.project.domain.ProjectUtil.secretKeyDtoMapper;
 
 public class ProjectServiceUnitTest{
 
     ProjectRepository projectRepository = mock(ProjectRepository.class);
+    ProjectMapper projectMapper = new ProjectMapper();
 
-    ProjectService projectService = new ProjectService(projectRepository);
+    ProjectService projectService = new ProjectService(projectRepository, projectMapper);
 
     @Test
     public void should_add_new_project_db() {
@@ -56,9 +58,10 @@ public class ProjectServiceUnitTest{
         when(projectRepository.findAll()).thenReturn(Arrays.asList(secretKey(), pacman()));
 
         //WHEN
+        final List<ProjectDto> expected = Arrays.asList(secretKeyDtoMapper(), pacmanDto());
         final List<ProjectDto> allProject = projectService.findAllProject();
         //THEN
-        assertThat(allProject).isEqualTo(Arrays.asList(secretKeyDtoMapper(), pacmanDtoMapper()));
+        assertThat(allProject).isEqualTo(Arrays.asList(secretKeyDtoMapper(), pacmanDto()));
     }
 
     @Test

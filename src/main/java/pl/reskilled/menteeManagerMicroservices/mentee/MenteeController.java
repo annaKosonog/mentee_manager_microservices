@@ -25,7 +25,7 @@ public class MenteeController {
     @PreAuthorize("hasAuthority('STUDENT') or hasAuthority(('MENTOR'))")
     @GetMapping("/students")
     public ResponseEntity<List<MenteeDto>> getAllStudents() {
-        return ResponseEntity.ok(menteeService.getAllStudents());
+        return ResponseEntity.ok(menteeService.findAllStudents());
     }
 
 

@@ -6,7 +6,6 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Mentee;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dao.Seniority;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 
-
 @Component
 public class MenteeMapper {
 
@@ -14,7 +13,7 @@ public class MenteeMapper {
         return MenteeDto.builder()
                 .username(from.getUsername())
                 .email(from.getEmail())
-                .future_position(from.getFuture_position())
+                .futurePosition(from.getFuturePosition())
                 .duration(from.getDuration().toString())
                 .seniority(from.getSeniority().toString())
                 .build();
@@ -24,7 +23,7 @@ public class MenteeMapper {
         return Mentee.builder()
                 .username(reverse.getUsername())
                 .email(reverse.getEmail())
-                .future_position(reverse.getFuture_position())
+                .futurePosition(reverse.getFuturePosition())
                 .duration(Duration.valueOf(reverse.getDuration()))
                 .seniority(Seniority.valueOf(reverse.getSeniority()))
                 .build();
