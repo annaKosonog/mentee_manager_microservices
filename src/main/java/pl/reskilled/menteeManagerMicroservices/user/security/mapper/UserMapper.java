@@ -7,8 +7,8 @@ import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authorit
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.User;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -19,14 +19,15 @@ public class UserMapper {
 
     public User mapRegisterToUser(SignUpDto register) {
 
-        Set<Authority> roles = new HashSet<>();
-        roles.add(Authority.fetchValue());
+        Set<String> roles = register.getRoles();
 
         final User user = new User();
         user.setUsername(register.getUsername());
         user.setEmail(register.getEmail());
         user.setPassword(passwordEncoder.encode(register.getPassword()));
-        user.setRoles(roles);
+        user.setRoles(roles.stream()
+                .map(Authority::valueOf)
+                .collect(Collectors.toSet()));
         return user;
     }
 }
