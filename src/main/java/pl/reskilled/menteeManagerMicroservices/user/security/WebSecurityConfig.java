@@ -40,9 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/projects/add",
             "/api/projects",
             "/api/csv/project",
-            "/api/csv/mentees"
+            "/api/csv/mentees",
             "/api/teams/add",
-            "/api/teams"
+            "/api/teams",
+            "/api/csv/teams"
     };
     
     private final MongoDetailsServiceImpl mongoDetailsService;

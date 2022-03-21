@@ -32,4 +32,11 @@ public class CsvProjectController {
         csvView.prepareResponse(response, fileName);
         csvView.buildCsvDocumentMentee(response);
     }
+
+    @GetMapping("/csv/teams")
+    public void returningCsvContentFromAnApiTeams(HttpServletResponse response, @RequestParam("file") File fileName) throws IOException {
+
+        csvView.prepareResponse(response, fileName);
+        csvView.buildCsvDocumentTeams(response);
+    }
 }

@@ -9,6 +9,8 @@ import pl.reskilled.menteeManagerMicroservices.mentee.domain.MenteeService;
 import pl.reskilled.menteeManagerMicroservices.mentee.domain.dto.MenteeDto;
 import pl.reskilled.menteeManagerMicroservices.project.domain.ProjectService;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.TeamService;
+import pl.reskilled.menteeManagerMicroservices.teams.domain.dto.TeamReadDto;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -27,6 +29,7 @@ public class CsvView {
 
     private final ProjectService projectService;
     private final MenteeService menteeService;
+    private final TeamService teamService;
 
     protected void prepareResponse(HttpServletResponse response, File fileName) {
         response.setContentType("text/csv");
@@ -34,7 +37,7 @@ public class CsvView {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=" + fileName +"_" + currentDateTime + ".csv";
+        String headerValue = "attachment; filename=" + fileName + "_" + currentDateTime + ".csv";
 
         response.setHeader(headerKey, headerValue);
     }
@@ -54,14 +57,14 @@ public class CsvView {
         for (ProjectDto dto : listProject) {
             csvWriter.write(dto, nameMapping);
         }
-            csvWriter.close();
+        csvWriter.close();
     }
 
     protected void buildCsvDocumentMentee(HttpServletResponse response) throws IOException {
         Writer writer = new OutputStreamWriter(response.getOutputStream(), StandardCharsets.UTF_8.toString());
         ICsvBeanWriter csvWriter = new CsvBeanWriter(writer, CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
 
-        List<MenteeDto> listMentee = menteeService.getAllStudents();
+        List<MenteeDto> listMentee = menteeService.findAllStudents();
 
         String[] csvHeader = {"Username", "Email", "Future_position", "Duration", "Seniority"};
         String[] nameMapping = {"username", "email", "future_position", "duration", "seniority"};
@@ -70,8 +73,24 @@ public class CsvView {
 
         for (MenteeDto dto : listMentee) {
             csvWriter.write(dto, nameMapping);
-
         }
         csvWriter.close();
     }
+
+    protected void buildCsvDocumentTeams(HttpServletResponse response) throws IOException {
+        Writer writer = new OutputStreamWriter(response.getOutputStream(), StandardCharsets.UTF_8.toString());
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(writer, CsvPreference.EXCEL_NORTH_EUROPE_PREFERENCE);
+
+        List<TeamReadDto> listTeams = teamService.findAllTeams();
+
+        String[] csvHeader = {"Name", "Tech stack", "Projects", "Members"};
+        String[] nameMapping = {"name", "techStack", "projects", "members"};
+
+        csvWriter.writeHeader(csvHeader);
+
+        for (TeamReadDto dto : listTeams) {
+            csvWriter.write(dto, nameMapping);
+        }
+        csvWriter.close();
     }
+}
