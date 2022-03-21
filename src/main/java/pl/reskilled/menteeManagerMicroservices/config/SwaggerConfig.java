@@ -22,16 +22,6 @@ import static java.util.Collections.singletonList;
 @ConditionalOnProperty(value = "swagger.enabled", matchIfMissing = true)
 public class SwaggerConfig {
 
-    @Bean
-    public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
-                .build()
-                .securitySchemes(singletonList(createSchema()))
-                .securityContexts(singletonList(createContext()));
-    }
-
     private static final List<SecurityReference> createRef() {
         AuthorizationScope authorizationScope = new AuthorizationScope(
                 "global", "accessEverything");
@@ -49,6 +39,16 @@ public class SwaggerConfig {
 
     private static final SecurityScheme createSchema() {
         return new ApiKey("apiKey", "Authorization", "header");
+    }
+
+    @Bean
+    public Docket docket() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .paths(PathSelectors.regex("^(?!/(error).*$).*$"))
+                .build()
+                .securitySchemes(singletonList(createSchema()))
+                .securityContexts(singletonList(createContext()));
     }
 }
 

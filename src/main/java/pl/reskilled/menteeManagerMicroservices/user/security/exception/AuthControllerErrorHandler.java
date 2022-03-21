@@ -21,7 +21,7 @@ public class AuthControllerErrorHandler {
 
     private static final String BAD_CREDENTIALS = "Bad Credentials";
 
-    @ExceptionHandler( UserExistEmailException.class)
+    @ExceptionHandler(UserExistEmailException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public AuthErrorResponse userConflict(UserExistEmailException exception) {

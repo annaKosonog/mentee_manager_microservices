@@ -38,7 +38,7 @@ public class Mentee {
 
     @NotBlank
     @Field(name = "future_position")
-    private String future_position;
+    private String futurePosition;
 
     @NotBlank
     @DurationType

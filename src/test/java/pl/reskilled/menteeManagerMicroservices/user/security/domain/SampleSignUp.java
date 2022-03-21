@@ -1,5 +1,6 @@
 package pl.reskilled.menteeManagerMicroservices.user.security.domain;
 
+import pl.reskilled.menteeManagerMicroservices.user.security.domain.dao.Authority;
 import pl.reskilled.menteeManagerMicroservices.user.security.domain.dto.SignUpDto;
 
 import java.util.Collections;
@@ -12,6 +13,6 @@ public interface SampleSignUp {
     }
 
     default SignUpDto registerUser() {
-        return allParameterSignUpDto("Wacek", "soki@hortex.pl", "Jan123", Collections.singleton("STUDENT"));
+        return allParameterSignUpDto("Wacek", "soki@hortex.pl", "Jan123", Collections.singleton(Authority.valueOf("STUDENT").toString()));
     }
 }

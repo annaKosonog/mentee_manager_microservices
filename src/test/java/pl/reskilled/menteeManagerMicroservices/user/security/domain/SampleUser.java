@@ -39,7 +39,7 @@ public interface SampleUser {
     }
 
     default User beforeSaveDb() {
-        return userParametersWithoutId("Wacek", "zdzislaw@onet.pl", "test1", Collections.singleton(Authority.STUDENT));
+        return userParametersWithoutId("Wacek", "soki@hortex.pl", "Jan123", Collections.singleton(Authority.STUDENT));
     }
 
     default User exampleUser(){
