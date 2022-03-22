@@ -12,30 +12,26 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/csv")
 public class CsvProjectController {
 
     private final CsvView csvView;
 
-
-    @GetMapping("/csv/project")
+    @GetMapping("/project")
     public void returningCsvContentFromAnApiProject(HttpServletResponse response, @RequestParam("file") File fileName) throws Exception {
-
         csvView.prepareResponse(response, fileName);
         csvView.buildCsvDocumentProject(response);
 
     }
 
-    @GetMapping("/csv/mentees")
+    @GetMapping("/mentees")
     public void returningCsvContentFromAnApiMentees(HttpServletResponse response, @RequestParam("file") File fileName) throws IOException {
-
         csvView.prepareResponse(response, fileName);
         csvView.buildCsvDocumentMentee(response);
     }
 
-    @GetMapping("/csv/teams")
+    @GetMapping("/teams")
     public void returningCsvContentFromAnApiTeams(HttpServletResponse response, @RequestParam("file") File fileName) throws IOException {
-
         csvView.prepareResponse(response, fileName);
         csvView.buildCsvDocumentTeams(response);
     }
