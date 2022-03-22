@@ -25,6 +25,8 @@
         <testcontainers-junit-jupiter.version>1.15.2</testcontainers-junit-jupiter.version>
         <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <aws-java-sdk-core.version>1.8.10.2</aws-java-sdk-core.version>
+        <super-csv.version>2.4.0</super-csv.version>
     </properties>
     <dependencies>
         <dependency>
@@ -105,13 +107,13 @@
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-core</artifactId>
-            <version>1.8.10.2</version>
+            <version>${aws-java-sdk-core.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.supercsv</groupId>
             <artifactId>super-csv</artifactId>
-            <version>2.4.0</version>
+            <version>${super-csv.version}</version>
         </dependency>
 
     </dependencies>
