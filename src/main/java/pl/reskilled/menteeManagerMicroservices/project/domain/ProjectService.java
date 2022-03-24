@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.reskilled.menteeManagerMicroservices.project.domain.dto.ProjectDto;
 import pl.reskilled.menteeManagerMicroservices.project.exception.response.NameExistsException;
 import pl.reskilled.menteeManagerMicroservices.teams.exception.ProjectNameNotFoundException;
@@ -34,6 +35,7 @@ public class ProjectService {
         }
     }
 
+    @Transactional
     public List<ProjectDto> findAllProject() {
         return projectRepository.findAll()
                 .stream()

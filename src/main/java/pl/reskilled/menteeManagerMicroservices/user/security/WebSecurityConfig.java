@@ -39,9 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/signin**",
             "/api/projects/add",
             "/api/projects",
+            "/api/csv/project",
+            "/api/csv/mentees",
             "/api/teams/add",
-            "/api/teams"
+            "/api/teams",
+            "/api/csv/teams"
     };
+    
     private final MongoDetailsServiceImpl mongoDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final JwtUtils utils;
